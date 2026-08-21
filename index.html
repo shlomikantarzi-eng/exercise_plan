@@ -127,11 +127,11 @@
       display: inline-block;
       background: var(--accent-glow);
       color: var(--accent);
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .macro-bar {
       display: grid;
@@ -139,18 +139,19 @@
       gap: 6px;
       text-align: center;
       background: var(--card-inner);
-      padding: 10px;
+      padding: 12px 6px;
       border-radius: 10px;
-      margin-bottom: 14px;
-      font-size: 0.8rem;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      border: 1px solid #1e3a5f;
     }
-    .macro-item strong { display: block; color: var(--accent); font-size: 0.95rem; }
+    .macro-item strong { display: block; color: var(--accent); font-size: 1rem; margin-bottom: 2px; }
     
     .todo-item {
       display: flex;
       align-items: flex-start;
       margin: 14px 0;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       cursor: pointer;
       line-height: 1.4;
     }
@@ -169,8 +170,8 @@
     .weight-instruction {
       display: block;
       color: var(--muted);
-      font-size: 0.8rem;
-      margin-top: 2px;
+      font-size: 0.82rem;
+      margin-top: 3px;
     }
     
     /* כפתור פתיחת הדגמה פנימית */
@@ -190,7 +191,7 @@
     }
     .demo-btn:hover { background: #0369a1; }
 
-    /* נגן פנימי מובנה (Modal) */
+    /* נגן מובנה משולב וידאו */
     .demo-modal {
       display: none;
       position: fixed;
@@ -209,7 +210,7 @@
       background: var(--card);
       border-radius: 16px;
       width: 100%;
-      max-width: 500px;
+      max-width: 550px;
       overflow: hidden;
       border: 1px solid #334e68;
       box-shadow: 0 15px 35px rgba(0,0,0,0.8);
@@ -231,17 +232,24 @@
       cursor: pointer;
     }
     .demo-body {
-      padding: 18px;
-      text-align: center;
+      padding: 16px;
     }
-    .anim-display {
-      font-size: 3.5rem;
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
       margin-bottom: 12px;
-      animation: pulse 1.8s infinite ease-in-out;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
     .tips-box {
       background: #0b1329;
@@ -314,7 +322,7 @@
 </head>
 <body>
 
-  <!-- כותרת ממותגת עם תמונת מתאמן -->
+  <!-- כותרת ממותגת עם מתאמן -->
   <div class="brand-header">
     <div class="brand-title">
       <span class="brand-tag">S.K</span>
@@ -369,7 +377,7 @@
         <div>
           <strong>לחיצת חזה על ספה:</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר חזה גדול + יד אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 17.5 ק"ג או מוט 20 ק"ג (טמפו איטי 3 שנ' בירידה).</span>
-          <button class="demo-btn" onclick="showDemo('לחיצת חזה עם משקולות', '🏋️‍♂️', 'חזה מורם, שכמות נעולות לספה, ירידה איטית של 3 שניות עד מתיחה עמוקה בחזה ולחיצה מתפרצת.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('לחיצת חזה עם משקולות', 'VmB1G1K7v94', 'חזה מורם, שכמות נעולות לספה, ירידה איטית של 3 שניות עד מתיחה עמוקה בחזה ולחיצה מתפרצת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -378,7 +386,7 @@
         <div>
           <strong>עליות מתח:</strong> 4 × 6–10 <span class="muscle-name">(עובד על שריר הגב הרחב + יד קדמית)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל להעמסה נוספת.</span>
-          <button class="demo-btn" onclick="showDemo('עליות מתח', '🧗‍♂️', 'אחיזה ברוחב מעט יותר מכתפיים, משיכה מכוונת של החזה לכיוון המוט, וירידה איטית עד פשיטה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('עליות מתח', 'eGo4IYlbE5g', 'אחיזה ברוחב מעט יותר מכתפיים, משיכה מכוונת של החזה לכיוון המוט, וירידה איטית עד פשיטה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -387,7 +395,7 @@
         <div>
           <strong>הרחקות לצדדים:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר הכתף האמצעית - לבניית רוחב V)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 5–8 ק"ג (תנועה נקייה ללא תנופת גוף).</span>
-          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים', '🦅', 'מרפקים מובלים מעט למעלה וקדימה, הרמה עד גובה הכתפיים ללא שימוש בתנופת גו.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים', '3VcKaXpzqRo', 'מרפקים מובלים מעט למעלה וקדימה, הרמה עד גובה הכתפיים ללא שימוש בתנופת גו.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -396,7 +404,7 @@
         <div>
           <strong>שכיבות סמיכה בטבעות:</strong> 3 סטים עד כשל <span class="muscle-name">(עובד על שריר חזה + מייצבי כתף)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל (מתיחה עמוקה בתחתית).</span>
-          <button class="demo-btn" onclick="showDemo('שכיבות סמיכה בטבעות', '🤸‍♂️', 'שליטה ברעידות, ירידה מבוקרת עד מתיחה מקסימלית של החזה ולחיצה מיוצבת.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('שכיבות סמיכה בטבעות', 'y_e2mXq61qY', 'שליטה ברעידות, ירידה מבוקרת עד מתיחה מקסימלית של החזה ולחיצה מיוצבת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -405,7 +413,7 @@
         <div>
           <strong>כפיפות מרפקים:</strong> 3 × 10–12 <span class="muscle-name">(עובד על שריר היד הקדמית - בייספס)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 8–10 ק"ג.</span>
-          <button class="demo-btn" onclick="showDemo('כפיפות מרפקים לדאמבלס', '💪', 'מרפקים נעולים צמודים לצלעות, עלייה מבוקרת עם כיווץ שיא וירידה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('כפיפות מרפקים לדאמבלס', 'ykJmrZ5v0Oo', 'מרפקים נעולים צמודים לצלעות, עלייה מבוקרת עם כיווץ שיא וירידה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -420,7 +428,7 @@
         <div>
           <strong>סקוואט:</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר הארבע-ראשי + ישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג / דאמבלס 17.5 ק"ג + שילוב ווסט משקל.</span>
-          <button class="demo-btn" onclick="showDemo('סקוואט מבוקר', '🏋️‍♂️', 'חזה זקוף, משקל על מרכז כף הרגל והעקבים, ירידה איטית של 3 שניות עד מקביל או מעט נמוך יותר.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('סקוואט מבוקר', 'aclHkVaku9U', 'חזה זקוף, משקל על מרכז כף הרגל והעקבים, ירידה איטית של 3 שניות עד מקביל או מעט נמוך יותר.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -429,7 +437,7 @@
         <div>
           <strong>לאנג'ים:</strong> 3 × 10 לכל רגל <span class="muscle-name">(עובד על שריר הישבן + ארבע-ראשי ומייצבי אגן)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 10–17.5 ק"ג או ווסט משקל.</span>
-          <button class="demo-btn" onclick="showDemo('לאנגים עם משקולות', '🚶‍♂️', 'צעד יציב קדימה, 90 מעלות בשני המפרקים ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('לאנגים עם משקולות', 'D7KaRcUTQeE', 'צעד יציב קדימה, 90 מעלות בשני המפרקים ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -438,7 +446,7 @@
         <div>
           <strong>רומניאן דדליפט (RDL):</strong> 3 × 10–12 <span class="muscle-name">(עובד על שריר הירך האחורית - המסטרינגס וישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 17.5 ק"ג (מתיחה מלאה).</span>
-          <button class="demo-btn" onclick="showDemo('רומניאן דדליפט (RDL)', '🧘‍♂️', 'ברכיים כפופות קלות, דחיפת אגן וישבן לאחור עד מתיחה עמוקה בהמסטרינגס ושמירה על גב ישר לגמרי.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('רומניאן דדליפט (RDL)', 'JCXUYuzwNrM', 'ברכיים כפופות קלות, דחיפת אגן וישבן לאחור עד מתיחה עמוקה בהמסטרינגס ושמירה על גב ישר לגמרי.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -447,7 +455,7 @@
         <div>
           <strong>גלגל בטן (Ab Wheel):</strong> 3 × 8–12 <span class="muscle-name">(עובד על שריר הבטן הרוחבי - TVA להידוק מותניים)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף מבוקר (ללא כפיפות צד).</span>
-          <button class="demo-btn" onclick="showDemo('גלגל בטן מבוקר', '🔄', 'גלגול איטי מהברכיים קדימה, שאיבת פופיק חזקה פנימה וחזרה מכוח הבטן בלבד ללא שקיעת גב.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('גלגל בטן מבוקר', '7pB7K4r1cLo', 'גלגול איטי מהברכיים קדימה, שאיבת פופיק חזקה פנימה וחזרה מכוח הבטן בלבד ללא שקיעת גב.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -469,7 +477,7 @@
         <input type="checkbox" id="t11">
         <div>
           <strong>מתיחות וניידות:</strong> 10 דקות <span class="muscle-name">(שחרור מפרקי הכתפיים, אגן ושורש כף היד)</span>
-          <button class="demo-btn" onclick="showDemo('מתיחות וניידות', '🧘‍♂️', 'סיבובי מפרקים עדינים, פתיחת בית חזה ושחרור המסטרינגס וגידי הידיים.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('מתיחות וניידות', 'g_tea8ZNk5A', 'סיבובי מפרקים עדינים, פתיחת בית חזה ושחרור המסטרינגס וגידי הידיים.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -484,7 +492,7 @@
         <div>
           <strong>לחיצת כתפיים (OHP):</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר הכתף הקדמית והאמצעית)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 10–17.5 ק"ג.</span>
-          <button class="demo-btn" onclick="showDemo('לחיצת כתפיים OHP', '🏋️‍♂️', 'כיווץ בטן וישבן, לחיצה אנכית למעלה ללא הישענות מוגזמת לאחור.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('לחיצת כתפיים OHP', 'qEwKCR5JCog', 'כיווץ בטן וישבן, לחיצה אנכית למעלה ללא הישענות מוגזמת לאחור.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -493,7 +501,7 @@
         <div>
           <strong>חתירה בכיפוף (Row):</strong> 4 × 8–10 <span class="muscle-name">(עובד על שריר הגב האמצעי + טרפזים)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד / דאמבלס 17.5 ק"ג.</span>
-          <button class="demo-btn" onclick="showDemo('חתירה בכיפוף', '🚣‍♂️', 'הטיית גב של 45 מעלות, משיכת המשקולות לפופיק תוך כיווץ חזק של השכמות.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('חתירה בכיפוף', '6FZHJGzMFEc', 'הטיית גב של 45 מעלות, משיכת המשקולות לפופיק תוך כיווץ חזק של השכמות.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -502,7 +510,7 @@
         <div>
           <strong>טבילות (Dips) בטבעות:</strong> 3 × 8–10 <span class="muscle-name">(עובד על שריר החזה התחתון + יד אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל.</span>
-          <button class="demo-btn" onclick="showDemo('טבילות בטבעות Dips', '🤸‍♂️', 'הטיית גו מתונה קדימה, ירידה מבוקרת עד 90 מעלות במרפקים ודחיפה חזקה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('טבילות בטבעות Dips', '2z8JmcrW-As', 'הטיית גו מתונה קדימה, ירידה מבוקרת עד 90 מעלות במרפקים ודחיפה חזקה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -511,7 +519,7 @@
         <div>
           <strong>הרחקות לצדדים בהטיה:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר הכתף האמצעית והאחורית - מבנה V)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 5–8 ק"ג (עבודה שורפת ומדויקת).</span>
-          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים בהטיה', '🦅', 'הטיית גוף קלה קדימה, הרמת מרפקים רחבה המדגישה את רוחב הכתפיים.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים בהטיה', '3VcKaXpzqRo', 'הטיית גוף קלה קדימה, הרמת מרפקים רחבה המדגישה את רוחב הכתפיים.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -520,7 +528,7 @@
         <div>
           <strong>פשיטת מרפקים מאחורי הראש:</strong> 3 × 12–15 <span class="muscle-name">(עובד על שריר היד האחורית - טרייספס)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבל 8–10 ק"ג בשתי ידיים.</span>
-          <button class="demo-btn" onclick="showDemo('פשיטת מרפקים ליד אחורית', '💪', 'מרפקים קרובים לראש, ירידה מאחורי העורף ופשיטה מלאה למעלה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('פשיטת מרפקים ליד אחורית', 'nRiJVZDpdL0', 'מרפקים קרובים לראש, ירידה מאחורי העורף ופשיטה מלאה למעלה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -535,7 +543,7 @@
         <div>
           <strong>בולגריאן ספליט סקוואט:</strong> 3 × 8–10 לכל רגל <span class="muscle-name">(עובד על שריר הישבן + ארבע-ראשי מבודד)</span>
           <span class="weight-instruction">📌 משקל מוצע: רגל על ספה + דאמבלס 10 ק"ג / ווסט משקל.</span>
-          <button class="demo-btn" onclick="showDemo('בולגריאן ספליט סקוואט', '🦵', 'רגל אחורית על ספה, ירידה אנכית מבוקרת ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('בולגריאן ספליט סקוואט', '2C-uNgKwPLE', 'רגל אחורית על ספה, ירידה אנכית מבוקרת ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -544,7 +552,7 @@
         <div>
           <strong>דדליפט קלאסי עם מוט:</strong> 3 × 6–8 <span class="muscle-name">(עובד על שרירי הגב התחתון, ישבן וירך אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד (טכניקה נקייה ומבוקרת).</span>
-          <button class="demo-btn" onclick="showDemo('דדליפט קלאסי עם מוט', '🏋️‍♂️', 'מוט צמוד לשוקיים, גב ישר לגמרי, נעילת אגן מלאה בשיא העלייה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('דדליפט קלאסי עם מוט', 'op9kVnSso6Q', 'מוט צמוד לשוקיים, גב ישר לגמרי, נעילת אגן מלאה בשיא העלייה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -553,7 +561,7 @@
         <div>
           <strong>עליות תאומים בעמידה:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר השוקיים - תאומים)</span>
           <span class="weight-instruction">📌 משקל מוצע: ווסט משקל / דאמבל 17.5 ק"ג (2 שנ' עצירה במתיחה).</span>
-          <button class="demo-btn" onclick="showDemo('עליות תאומים בעמידה', '🦶', 'עלייה גבוהה על קצות הבהונות, עצירה של 2 שניות בשיא הכיווץ וירידה מבוקרת.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('עליות תאומים בעמידה', '-M4-G8p8fmc', 'עלייה גבוהה על קצות הבהונות, עצירה של 2 שניות בשיא הכיווץ וירידה מבוקרת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -562,7 +570,7 @@
         <div>
           <strong>פלאנק מבוקר (Hollow):</strong> 3 × 45–60 שניות <span class="muscle-name">(עובד על חיזוק וייצוב קיר הבטן הפנימי)</span>
           <span class="weight-instruction">📌 דגש: שאיבת בטן פנימה וכיווץ ישבן חזק.</span>
-          <button class="demo-btn" onclick="showDemo('פלאנק מבוקר (Hollow)', '🛡️', 'שאיבת טבור פנימה, כיווץ ישבן חזק וגוף בקו אחיד וישר ללא שקיעה.')">🎬 צפה בהדגמת תרגיל</button>
+          <button class="demo-btn" onclick="showDemo('פלאנק מבוקר (Hollow)', 'TvxNkmjdhMM', 'שאיבת טבור פנימה, כיווץ ישבן חזק וגוף בקו אחיד וישר ללא שקיעה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -578,7 +586,7 @@
         <label class="todo-item"><input type="checkbox" id="c1"><div><strong>5 עליות מתח:</strong> <span class="muscle-name">(גב רחב וזרועות)</span></div></label>
         <label class="todo-item"><input type="checkbox" id="c2"><div><strong>10 שכיבות סמיכה:</strong> <span class="muscle-name">(חזה ויד אחורית)</span></div></label>
         <label class="todo-item"><input type="checkbox" id="c3"><div><strong>15 סקוואט משקל גוף:</strong> <span class="muscle-name">(ארבע-ראשי וישבן)</span></div></label>
-        <button class="demo-btn" onclick="showDemo('פרוטוקול סינדי (Cindy)', '⏱️', '5 מתח + 10 שכיבות סמיכה + 15 סקוואט משקל גוף. שמור על קצב עבודה רציף ומדוד למשך 15 דקות.')">🎬 צפה בהדגמת תרגיל</button>
+        <button class="demo-btn" onclick="showDemo('פרוטוקול סינדי (Cindy)', '4J2m6mZ_Z2M', '5 מתח + 10 שכיבות סמיכה + 15 סקוואט משקל גוף. שמור על קצב עבודה רציף ומדוד למשך 15 דקות.')">🎬 צפה בהדגמת תרגיל</button>
       </div>
     </div>
   </div>
@@ -624,7 +632,7 @@
     </div>
   </div>
 
-  <!-- חלון הדגמה מובנה בתוך האפליקציה -->
+  <!-- חלון הדגמה מובנה עם וידאו -->
   <div id="demoModal" class="demo-modal" onclick="closeDemo(event)">
     <div class="demo-content" onclick="event.stopPropagation()">
       <div class="demo-header">
@@ -632,7 +640,9 @@
         <button class="close-btn" onclick="closeDemoDirect()">✕</button>
       </div>
       <div class="demo-body">
-        <div id="demoIcon" class="anim-display">🏋️‍♂️</div>
+        <div class="video-wrapper">
+          <iframe id="demoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
         <div class="tips-box">
           <strong>📋 דגש טכני קריטי:</strong>
           <span id="demoText" style="color: #f8fafc;"></span>
@@ -665,15 +675,16 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function showDemo(title, icon, text) {
+    function showDemo(title, videoId, text) {
       document.getElementById('demoTitle').innerText = title;
-      document.getElementById('demoIcon').innerText = icon;
+      document.getElementById('demoIframe').src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&modestbranding=1&rel=0';
       document.getElementById('demoText').innerText = text;
       document.getElementById('demoModal').classList.add('active');
     }
 
     function closeDemoDirect() {
       document.getElementById('demoModal').classList.remove('active');
+      document.getElementById('demoIframe').src = '';
     }
 
     function closeDemo(event) {
