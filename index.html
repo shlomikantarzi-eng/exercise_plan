@@ -349,7 +349,7 @@
         <div>
           <strong>רומניאן דדליפט (RDL):</strong> 3 × 10–12 <span class="muscle-name">(עובד על שריר הירך האחורית - המסטרינגס וישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 17.5 ק"ג (מתיחה מלאה).</span>
-          <button class="video-btn" onclick="openVideo('7AaaYh43Sg0', 'רומניאן דדליפט RDL')">🎬 צפה בהדגמה</button>
+          <button class="video-btn" onclick="openVideo('hu3jRvTc_po', 'רומניאן דדליפט עם דאמבלס')">🎬 צפה בהדגמה</button>
         </div>
       </label>
 
@@ -358,7 +358,7 @@
         <div>
           <strong>גלגל בטן (Ab Wheel):</strong> 3 × 8–12 <span class="muscle-name">(עובד על שריר הבטן הרוחבי - TVA להידוק מותניים)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף מבוקר (ללא כפיפות צד).</span>
-          <button class="video-btn" onclick="openVideo('rqiTPdK1cWg', 'גלגל בטן מבוקר')">🎬 צפה בהדגמה</button>
+          <button class="video-btn" onclick="openVideo('6Y2Un0gMals', 'גלגל בטן מבוקר')">🎬 צפה בהדגמה</button>
         </div>
       </label>
     </div>
@@ -528,111 +528,4 @@
         <h3 id="modalTitle">הדגמת תרגיל</h3>
         <button class="close-btn" onclick="closeVideoDirect()">✕</button>
       </div>
-      <div class="iframe-wrapper">
-        <iframe id="videoIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- ניווט תחתון -->
-  <div class="nav">
-    <button class="active" onclick="switchTab('workout')">🏋️ אימונים ומעקב</button>
-    <button onclick="switchTab('nutrition')">🥗 תפריט תזונה</button>
-  </div>
-
-  <script>
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-
-    /* ניהול נגן וידאו מובנה */
-    function openVideo(videoId, title) {
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('videoIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
-      document.getElementById('videoModal').classList.add('active');
-    }
-
-    function closeVideoDirect() {
-      document.getElementById('videoModal').classList.remove('active');
-      document.getElementById('videoIframe').src = '';
-    }
-
-    function closeVideo(event) {
-      if (event.target.id === 'videoModal') {
-        closeVideoDirect();
-      }
-    }
-
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(cb => {
-      const saved = localStorage.getItem(cb.id);
-      if (saved === 'true') cb.checked = true;
-      cb.addEventListener('change', () => {
-        localStorage.setItem(cb.id, cb.checked);
-      });
-    });
-
-    function toggleWeek(num) {
-      const btn = document.getElementById('w' + num);
-      const cb = btn.querySelector('input');
-      if (cb.checked) {
-        btn.classList.add('checked');
-        localStorage.setItem('week_' + num, 'true');
-      } else {
-        btn.classList.remove('checked');
-        localStorage.removeItem('week_' + num);
-      }
-      updateWeekCount();
-    }
-
-    function updateWeekCount() {
-      let count = 0;
-      for (let i = 1; i <= 8; i++) {
-        if (localStorage.getItem('week_' + i) === 'true') {
-          count++;
-          const btn = document.getElementById('w' + i);
-          if (btn) {
-            btn.classList.add('checked');
-            btn.querySelector('input').checked = true;
-          }
-        }
-      }
-      document.getElementById('completedWeeksCount').innerText = count + '/8 שבועות';
-    }
-    updateWeekCount();
-
-    function resetTasks() {
-      if (confirm("לאפס את סימוני האימונים והתזונה של השבוע הנוכחי?")) {
-        checkboxes.forEach(cb => {
-          if (!cb.id.startsWith('w')) {
-            cb.checked = false;
-            localStorage.removeItem(cb.id);
-          }
-        });
-      }
-    }
-
-    let timerInterval;
-    function startTimer(seconds) {
-      clearInterval(timerInterval);
-      let timeLeft = seconds;
-      const display = document.getElementById('timerDisplay');
-      display.style.color = '#38bdf8';
-      
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        display.innerText = timeLeft + ' שנ\'';
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          display.innerText = 'צא לסט הבא! 🔥';
-          display.style.color = '#22c55e';
-          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-        }
-      }, 1000);
-    }
-  </script>
-</body>
-</html>
+      <div class="iframe-wra
