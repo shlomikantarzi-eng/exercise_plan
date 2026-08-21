@@ -28,7 +28,7 @@
       border: 1px solid #334e68;
       border-radius: 12px;
       padding: 12px 16px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -48,10 +48,38 @@
       letter-spacing: 1px;
     }
     .brand-name {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: bold;
       color: #fff;
     }
+
+    /* טאבים ראשיים */
+    .top-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: var(--card);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid #1e3a5f;
+    }
+    .top-tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .top-tab-btn.active {
+      background: var(--accent);
+      color: #0b1329;
+    }
+
     h2 { color: #fff; font-size: 1.15rem; margin: 4px 0 10px 0; }
     
     /* מעקב 8 שבועות */
@@ -105,6 +133,19 @@
       font-weight: 600;
       margin-bottom: 6px;
     }
+    .macro-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      text-align: center;
+      background: var(--card-inner);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+    }
+    .macro-item strong { display: block; color: var(--accent); font-size: 0.95rem; }
+    
     .todo-item {
       display: flex;
       align-items: flex-start;
@@ -132,7 +173,7 @@
       margin-top: 2px;
     }
     
-    /* כפתור סרטון פנימי */
+    /* כפתור הדרכה */
     .video-btn {
       display: inline-flex;
       align-items: center;
@@ -149,7 +190,7 @@
     }
     .video-btn:hover { background: #0369a1; }
 
-    /* נגן פנימי מוגדל (Modal) */
+    /* חלון הדרכה מוגדל (Modal) */
     .video-modal {
       display: none;
       position: fixed;
@@ -168,7 +209,7 @@
       background: var(--card);
       border-radius: 16px;
       width: 95%;
-      max-width: 780px;
+      max-width: 650px;
       overflow: hidden;
       border: 1px solid #334e68;
       box-shadow: 0 15px 35px rgba(0,0,0,0.8);
@@ -195,19 +236,14 @@
     .tech-box {
       background: #0b1329;
       border-radius: 10px;
-      padding: 12px;
+      padding: 14px;
       margin-bottom: 14px;
       border: 1px solid #1e3a5f;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       line-height: 1.5;
     }
     .tech-box strong { color: var(--accent); }
-    .action-links {
-      display: flex;
-      gap: 10px;
-    }
     .direct-link-btn {
-      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -215,9 +251,9 @@
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       gap: 6px;
     }
 
@@ -264,6 +300,7 @@
       cursor: pointer;
     }
     .nav button.active { color: var(--accent); }
+    
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
@@ -289,7 +326,13 @@
     <button class="reset-btn" onclick="resetTasks()">אפס שבוע</button>
   </div>
 
-  <!-- טאב אימונים -->
+  <!-- טאבים ראשיים -->
+  <div class="top-tabs">
+    <button id="topBtnWorkout" class="top-tab-btn active" onclick="switchTab('workout')">🏋️ תוכנית אימונים</button>
+    <button id="topBtnNutrition" class="top-tab-btn" onclick="switchTab('nutrition')">🥗 תפריט 3 ארוחות</button>
+  </div>
+
+  <!-- ==================== טאב 1: אימונים ==================== -->
   <div id="workout" class="tab-content active">
 
     <!-- מעקב 8 שבועות -->
@@ -510,26 +553,4 @@
 
       <label class="todo-item">
         <input type="checkbox" id="t19">
-        <div>
-          <strong>עליות תאומים בעמידה:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר השוקיים - תאומים)</span>
-          <span class="weight-instruction">📌 משקל מוצע: ווסט משקל / דאמבל 17.5 ק"ג (2 שנ' עצירה במתיחה).</span>
-          <button class="video-btn" onclick="openExerciseGuide('עליות תאומים בעמידה', 'עלייה מקסימלית על קצות הבהונות, עצירה של 2 שניות וירידה איטית.', 'standing+calf+raise+form+shorts')">🎬 צפה בהדגמה</button>
-        </div>
-      </label>
-
-      <label class="todo-item">
-        <input type="checkbox" id="t20">
-        <div>
-          <strong>פלאנק מבוקר (Hollow):</strong> 3 × 45–60 שניות <span class="muscle-name">(עובד על חיזוק וייצוב קיר הבטן הפנימי)</span>
-          <span class="weight-instruction">📌 דגש: שאיבת בטן פנימה וכיווץ ישבן חזק.</span>
-          <button class="video-btn" onclick="openExerciseGuide('פלאנק מבוקר (Hollow Plank)', 'שאיבת טבור פנימה, כיווץ ישבן ואגן מגולגל מעט קדימה.', 'hollow+body+plank+form+shorts')">🎬 צפה בהדגמה</button>
-        </div>
-      </label>
-    </div>
-
-    <!-- שישי -->
-    <div class="card">
-      <span class="badge">יום שישי</span>
-      <h2>קונדישנינג קצר (15 דקות)</h2>
-
-      <label
+     
