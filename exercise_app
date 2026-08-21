@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recomp Master Plan</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --success: #22c55e;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 16px;
+      padding-bottom: 80px;
+    }
+    h1, h2, h3 { color: var(--accent); margin-top: 0; }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 0.95rem;
+    }
+    .todo-item input {
+      margin-left: 10px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      border-top: 1px solid #334155;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav button.active {
+      color: var(--accent);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- אימונים -->
+  <div id="workout" class="tab-content active">
+    <h1>🏋️ תוכנית אימונים שבועית</h1>
+
+    <div class="card">
+      <span class="badge">ראשון</span>
+      <h2>עליון A (חזה + כתף אמצעית)</h2>
+      <label class="todo-item"><input type="checkbox"> לחיצת חזה: 4 × 8–12 (טמפו איטי)</label>
+      <label class="todo-item"><input type="checkbox"> עליות מתח: 4 × 6–10</label>
+      <label class="todo-item"><input type="checkbox"> הרחקות לצדדים: 4 × 15–20</label>
+      <label class="todo-item"><input type="checkbox"> שכיבות סמיכה בטבעות: 3 סטים</label>
+      <label class="todo-item"><input type="checkbox"> יד קדמית: 3 × 10–12</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">שני</span>
+      <h2>תחתון A + ליבה</h2>
+      <label class="todo-item"><input type="checkbox"> סקוואט (מוט/דאמבלס): 4 × 8–12</label>
+      <label class="todo-item"><input type="checkbox"> לאנג'ים: 3 × 10 לכל רגל</label>
+      <label class="todo-item"><input type="checkbox"> RDL: 3 × 10–12</label>
+      <label class="todo-item"><input type="checkbox"> גלגל בטן: 3 × 8–12</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">שלישי</span>
+      <h2>LISS + התאוששות אקטיבית</h2>
+      <label class="todo-item"><input type="checkbox"> הליכת בוקר 05:30–06:30 (60 דק')</label>
+      <label class="todo-item"><input type="checkbox"> מתיחות ושחרור</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">רביעי</span>
+      <h2>עליון B (גב + כתף אמצעית)</h2>
+      <label class="todo-item"><input type="checkbox"> לחיצת כתפיים (OHP): 4 × 8–12</label>
+      <label class="todo-item"><input type="checkbox"> חתירה בכיפוף: 4 × 8–10</label>
+      <label class="todo-item"><input type="checkbox"> טבילות (Dips) בטבעות: 3 × 8–10</label>
+      <label class="todo-item"><input type="checkbox"> הרחקות לצדדים בהטיה: 4 × 15–20</label>
+      <label class="todo-item"><input type="checkbox"> יד אחורית: 3 × 12–15</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">חמישי</span>
+      <h2>תחתון B + ליבה</h2>
+      <label class="todo-item"><input type="checkbox"> בולגריאן ספליט סקוואט: 3 × 8–10</label>
+      <label class="todo-item"><input type="checkbox"> דדליפט קלאסי: 3 × 6–8</label>
+      <label class="todo-item"><input type="checkbox"> עליות תאומים: 4 × 15–20</label>
+      <label class="todo-item"><input type="checkbox"> פלאנק מבוקר: 3 × 45–60 שנ'</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">שישי</span>
+      <h2>קונדישנינג (סינדי מתון)</h2>
+      <label class="todo-item"><input type="checkbox"> AMRAP 15 דק': 5 מתח + 10 שכיבות סמיכה + 15 סקוואט</label>
+    </div>
+  </div>
+
+  <!-- תזונה -->
+  <div id="nutrition" class="tab-content">
+    <h1>🥗 תפריט 3 ארוחות (~1,900 קק"ל)</h1>
+
+    <div class="card">
+      <span class="badge">בוקר (~650 קק"ל | ~58 גרם חלבון)</span>
+      <label class="todo-item"><input type="checkbox"> שייק: סקופ WHEY + 4 כפות שיבולת שועל + כפית צ'יה + חלב/מים</label>
+      <label class="todo-item"><input type="checkbox"> 2 ביצים קשות</label>
+      <label class="todo-item"><input type="checkbox"> 2 פרוסות לחם מלא + כף גבינה לבנה 5% + ירקות</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">צהריים בעבודה (~550 קק"ל | ~48 גרם חלבון)</span>
+      <label class="todo-item"><input type="checkbox"> 180–200 גרם חזה/כרע עוף או 2 פילטים אמנון</label>
+      <label class="todo-item"><input type="checkbox"> 4–5 כפות אורז מבושל / תפוח אדמה</label>
+      <label class="todo-item"><input type="checkbox"> מרק ירקות + סלט עם כפית שמן זית</label>
+    </div>
+
+    <div class="card">
+      <span class="badge">ערב בבית (~700 קק"ל | ~55 גרם חלבון)</span>
+      <p style="color: var(--muted); font-size: 0.9rem;">בחר אופציה אחת:</p>
+      <label class="todo-item"><input type="checkbox"> א': 2 קופסאות סרדינים + 2 ביצים + סטייק כרוב/סלט + 2 כפות טחינה + יוגורט חלבון</label>
+      <label class="todo-item"><input type="checkbox"> ב': שקשוקה 3 ביצים + 100 גרם פטה/חמד 5% + 2 לחם מחמצת + סלט + יוגורט חלבון</label>
+      <label class="todo-item"><input type="checkbox"> ג': קוטג' 5% + טונה/סרדינים + 2 ביצים + 2 לחם קלוי + טחינה וסלט</label>
+    </div>
+  </div>
+
+  <!-- ניווט תחתון -->
+  <div class="nav">
+    <button class="active" onclick="switchTab('workout')">אימונים</button>
+    <button onclick="switchTab('nutrition')">תזונה</button>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
