@@ -53,29 +53,32 @@
       color: #fff;
     }
 
-    /* ניווט מהיר עליון */
-    .quick-nav {
+    /* טאבים ראשיים */
+    .top-tabs {
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
-      position: sticky;
-      top: 10px;
-      z-index: 99;
-    }
-    .nav-pill {
-      flex: 1;
-      text-align: center;
       background: var(--card);
-      border: 1px solid #38bdf8;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: bold;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid #1e3a5f;
     }
-    .nav-pill:active { background: #0284c7; }
+    .top-tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 12px 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .top-tab-btn.active {
+      background: var(--accent);
+      color: #0b1329;
+    }
 
     h2 { color: #fff; font-size: 1.15rem; margin: 4px 0 10px 0; }
     
@@ -170,21 +173,86 @@
       margin-top: 2px;
     }
     
-    /* כפתור סרטון ישיר */
-    .video-link-btn {
+    /* כפתור פתיחת הדגמה פנימית */
+    .demo-btn {
       display: inline-flex;
       align-items: center;
       margin-top: 6px;
-      background: #ef4444;
-      color: #ffffff !important;
-      text-decoration: none;
+      background: #0284c7;
+      color: white;
+      border: none;
       font-size: 0.75rem;
       font-weight: bold;
-      padding: 5px 12px;
+      padding: 6px 12px;
       border-radius: 6px;
       gap: 4px;
+      cursor: pointer;
     }
-    .video-link-btn:hover { background: #dc2626; }
+    .demo-btn:hover { background: #0369a1; }
+
+    /* נגן פנימי מובנה (Modal) */
+    .demo-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 14px;
+    }
+    .demo-modal.active { display: flex; }
+    .demo-content {
+      background: var(--card);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+      border: 1px solid #334e68;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+    }
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      background: var(--card-inner);
+    }
+    .demo-header h3 { margin: 0; font-size: 1.05rem; color: #fff; }
+    .close-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 1.6rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .demo-body {
+      padding: 18px;
+      text-align: center;
+    }
+    .anim-display {
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .tips-box {
+      background: #0b1329;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: right;
+      border: 1px solid #1e3a5f;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .tips-box strong { color: var(--accent); display: block; margin-bottom: 4px; }
 
     /* טיימר מנוחה */
     .timer-bar {
@@ -207,6 +275,32 @@
       cursor: pointer;
     }
 
+    /* ניווט תחתון קבוע */
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      border-top: 1px solid #1e293b;
+      z-index: 100;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav button.active { color: var(--accent); }
+
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
     .reset-btn {
       background: none;
       border: 1px solid #ef4444;
@@ -220,51 +314,50 @@
 </head>
 <body>
 
-  <!-- כותרת ממותגת -->
+  <!-- כותרת ממותגת עם תמונת מתאמן -->
   <div class="brand-header">
     <div class="brand-title">
       <span class="brand-tag">S.K</span>
-      <span class="brand-name">תוכנית האימונים של שלומי 👑</span>
+      <span class="brand-name">תוכנית האימונים של שלומי 🏋️‍♂️</span>
     </div>
     <button class="reset-btn" onclick="resetTasks()">אפס שבוע</button>
   </div>
 
-  <!-- כפתורי מעבר מהיר לעמודים -->
-  <div class="quick-nav">
-    <a href="#section-workouts" class="nav-pill">🏋️ לאימונים</a>
-    <a href="#section-nutrition" class="nav-pill">🥗 לתפריט 3 ארוחות</a>
+  <!-- טאבים ראשיים -->
+  <div class="top-tabs">
+    <button id="topBtnWorkout" class="top-tab-btn active" onclick="showTab('workout')">🏋️ תוכנית אימונים</button>
+    <button id="topBtnNutrition" class="top-tab-btn" onclick="showTab('nutrition')">🥗 תפריט 3 ארוחות</button>
   </div>
 
-  <!-- מעקב 8 שבועות -->
-  <div class="weeks-tracker">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <strong style="font-size:0.9rem;">🎯 מעקב תוכנית (8 שבועות להערכה מחדש):</strong>
-      <span id="completedWeeksCount" style="color:var(--accent); font-size:0.85rem;">0/8 שבועות</span>
-    </div>
-    <div class="weeks-grid">
-      <label class="week-btn" id="w1"><input type="checkbox" onchange="toggleWeek(1)"> שבוע 1</label>
-      <label class="week-btn" id="w2"><input type="checkbox" onchange="toggleWeek(2)"> שבוע 2</label>
-      <label class="week-btn" id="w3"><input type="checkbox" onchange="toggleWeek(3)"> שבוע 3</label>
-      <label class="week-btn" id="w4"><input type="checkbox" onchange="toggleWeek(4)"> שבוע 4</label>
-      <label class="week-btn" id="w5"><input type="checkbox" onchange="toggleWeek(5)"> שבוע 5</label>
-      <label class="week-btn" id="w6"><input type="checkbox" onchange="toggleWeek(6)"> שבוע 6</label>
-      <label class="week-btn" id="w7"><input type="checkbox" onchange="toggleWeek(7)"> שבוע 7</label>
-      <label class="week-btn" id="w8"><input type="checkbox" onchange="toggleWeek(8)"> שבוע 8</label>
-    </div>
-  </div>
+  <!-- ==================== תצוגת אימונים ==================== -->
+  <div id="view-workout" class="tab-view active">
 
-  <!-- טיימר מנוחה -->
-  <div class="timer-bar">
-    <span>⏱️ מנוחה בין סטים: <strong id="timerDisplay">מוכן</strong></span>
-    <div>
-      <button class="timer-btn" onclick="startTimer(60)">60 שנ'</button>
-      <button class="timer-btn" onclick="startTimer(90)">90 שנ'</button>
+    <!-- מעקב 8 שבועות -->
+    <div class="weeks-tracker">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong style="font-size:0.9rem;">🎯 מעקב תוכנית (8 שבועות להערכה מחדש):</strong>
+        <span id="completedWeeksCount" style="color:var(--accent); font-size:0.85rem;">0/8 שבועות</span>
+      </div>
+      <div class="weeks-grid">
+        <label class="week-btn" id="w1"><input type="checkbox" onchange="toggleWeek(1)"> שבוע 1</label>
+        <label class="week-btn" id="w2"><input type="checkbox" onchange="toggleWeek(2)"> שבוע 2</label>
+        <label class="week-btn" id="w3"><input type="checkbox" onchange="toggleWeek(3)"> שבוע 3</label>
+        <label class="week-btn" id="w4"><input type="checkbox" onchange="toggleWeek(4)"> שבוע 4</label>
+        <label class="week-btn" id="w5"><input type="checkbox" onchange="toggleWeek(5)"> שבוע 5</label>
+        <label class="week-btn" id="w6"><input type="checkbox" onchange="toggleWeek(6)"> שבוע 6</label>
+        <label class="week-btn" id="w7"><input type="checkbox" onchange="toggleWeek(7)"> שבוע 7</label>
+        <label class="week-btn" id="w8"><input type="checkbox" onchange="toggleWeek(8)"> שבוע 8</label>
+      </div>
     </div>
-  </div>
 
-  <!-- ==================== חלק 1: אימונים ==================== -->
-  <div id="section-workouts">
-    <h1 style="color:var(--accent); font-size:1.3rem; margin:18px 0 10px 0;">🏋️ תוכנית האימונים השבועית</h1>
+    <!-- טיימר מנוחה -->
+    <div class="timer-bar">
+      <span>⏱️ מנוחה בין סטים: <strong id="timerDisplay">מוכן</strong></span>
+      <div>
+        <button class="timer-btn" onclick="startTimer(60)">60 שנ'</button>
+        <button class="timer-btn" onclick="startTimer(90)">90 שנ'</button>
+      </div>
+    </div>
 
     <!-- ראשון -->
     <div class="card">
@@ -276,7 +369,7 @@
         <div>
           <strong>לחיצת חזה על ספה:</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר חזה גדול + יד אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 17.5 ק"ג או מוט 20 ק"ג (טמפו איטי 3 שנ' בירידה).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=dumbbell+bench+press+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('לחיצת חזה עם משקולות', '🏋️‍♂️', 'חזה מורם, שכמות נעולות לספה, ירידה איטית של 3 שניות עד מתיחה עמוקה בחזה ולחיצה מתפרצת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -285,7 +378,7 @@
         <div>
           <strong>עליות מתח:</strong> 4 × 6–10 <span class="muscle-name">(עובד על שריר הגב הרחב + יד קדמית)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל להעמסה נוספת.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=pull+ups+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('עליות מתח', '🧗‍♂️', 'אחיזה ברוחב מעט יותר מכתפיים, משיכה מכוונת של החזה לכיוון המוט, וירידה איטית עד פשיטה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -294,7 +387,7 @@
         <div>
           <strong>הרחקות לצדדים:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר הכתף האמצעית - לבניית רוחב V)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 5–8 ק"ג (תנועה נקייה ללא תנופת גוף).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=dumbbell+lateral+raise+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים', '🦅', 'מרפקים מובלים מעט למעלה וקדימה, הרמה עד גובה הכתפיים ללא שימוש בתנופת גו.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -303,7 +396,7 @@
         <div>
           <strong>שכיבות סמיכה בטבעות:</strong> 3 סטים עד כשל <span class="muscle-name">(עובד על שריר חזה + מייצבי כתף)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל (מתיחה עמוקה בתחתית).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=gymnastic+rings+push+ups+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('שכיבות סמיכה בטבעות', '🤸‍♂️', 'שליטה ברעידות, ירידה מבוקרת עד מתיחה מקסימלית של החזה ולחיצה מיוצבת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -312,7 +405,7 @@
         <div>
           <strong>כפיפות מרפקים:</strong> 3 × 10–12 <span class="muscle-name">(עובד על שריר היד הקדמית - בייספס)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 8–10 ק"ג.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=dumbbell+bicep+curls+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('כפיפות מרפקים לדאמבלס', '💪', 'מרפקים נעולים צמודים לצלעות, עלייה מבוקרת עם כיווץ שיא וירידה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -327,7 +420,7 @@
         <div>
           <strong>סקוואט:</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר הארבע-ראשי + ישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג / דאמבלס 17.5 ק"ג + שילוב ווסט משקל.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=goblet+squat+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('סקוואט מבוקר', '🏋️‍♂️', 'חזה זקוף, משקל על מרכז כף הרגל והעקבים, ירידה איטית של 3 שניות עד מקביל או מעט נמוך יותר.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -336,7 +429,7 @@
         <div>
           <strong>לאנג'ים:</strong> 3 × 10 לכל רגל <span class="muscle-name">(עובד על שריר הישבן + ארבע-ראשי ומייצבי אגן)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 10–17.5 ק"ג או ווסט משקל.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=dumbbell+lunges+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('לאנגים עם משקולות', '🚶‍♂️', 'צעד יציב קדימה, 90 מעלות בשני המפרקים ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -345,7 +438,7 @@
         <div>
           <strong>רומניאן דדליפט (RDL):</strong> 3 × 10–12 <span class="muscle-name">(עובד על שריר הירך האחורית - המסטרינגס וישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 17.5 ק"ג (מתיחה מלאה).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=dumbbell+rdl+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('רומניאן דדליפט (RDL)', '🧘‍♂️', 'ברכיים כפופות קלות, דחיפת אגן וישבן לאחור עד מתיחה עמוקה בהמסטרינגס ושמירה על גב ישר לגמרי.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -354,7 +447,7 @@
         <div>
           <strong>גלגל בטן (Ab Wheel):</strong> 3 × 8–12 <span class="muscle-name">(עובד על שריר הבטן הרוחבי - TVA להידוק מותניים)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף מבוקר (ללא כפיפות צד).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=ab+wheel+rollout+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('גלגל בטן מבוקר', '🔄', 'גלגול איטי מהברכיים קדימה, שאיבת פופיק חזקה פנימה וחזרה מכוח הבטן בלבד ללא שקיעת גב.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -376,7 +469,7 @@
         <input type="checkbox" id="t11">
         <div>
           <strong>מתיחות וניידות:</strong> 10 דקות <span class="muscle-name">(שחרור מפרקי הכתפיים, אגן ושורש כף היד)</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=upper+body+mobility+routine+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('מתיחות וניידות', '🧘‍♂️', 'סיבובי מפרקים עדינים, פתיחת בית חזה ושחרור המסטרינגס וגידי הידיים.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -391,7 +484,7 @@
         <div>
           <strong>לחיצת כתפיים (OHP):</strong> 4 × 8–12 <span class="muscle-name">(עובד על שריר הכתף הקדמית והאמצעית)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 10–17.5 ק"ג.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=overhead+shoulder+press+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('לחיצת כתפיים OHP', '🏋️‍♂️', 'כיווץ בטן וישבן, לחיצה אנכית למעלה ללא הישענות מוגזמת לאחור.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -400,7 +493,7 @@
         <div>
           <strong>חתירה בכיפוף (Row):</strong> 4 × 8–10 <span class="muscle-name">(עובד על שריר הגב האמצעי + טרפזים)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד / דאמבלס 17.5 ק"ג.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=bent+over+row+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('חתירה בכיפוף', '🚣‍♂️', 'הטיית גב של 45 מעלות, משיכת המשקולות לפופיק תוך כיווץ חזק של השכמות.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -409,7 +502,7 @@
         <div>
           <strong>טבילות (Dips) בטבעות:</strong> 3 × 8–10 <span class="muscle-name">(עובד על שריר החזה התחתון + יד אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=ring+dips+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('טבילות בטבעות Dips', '🤸‍♂️', 'הטיית גו מתונה קדימה, ירידה מבוקרת עד 90 מעלות במרפקים ודחיפה חזקה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -418,7 +511,7 @@
         <div>
           <strong>הרחקות לצדדים בהטיה:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר הכתף האמצעית והאחורית - מבנה V)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 5–8 ק"ג (עבודה שורפת ומדויקת).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=lean+incline+lateral+raise+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('הרחקות לצדדים בהטיה', '🦅', 'הטיית גוף קלה קדימה, הרמת מרפקים רחבה המדגישה את רוחב הכתפיים.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -427,7 +520,7 @@
         <div>
           <strong>פשיטת מרפקים מאחורי הראש:</strong> 3 × 12–15 <span class="muscle-name">(עובד על שריר היד האחורית - טרייספס)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבל 8–10 ק"ג בשתי ידיים.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=overhead+tricep+extension+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('פשיטת מרפקים ליד אחורית', '💪', 'מרפקים קרובים לראש, ירידה מאחורי העורף ופשיטה מלאה למעלה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
@@ -442,7 +535,7 @@
         <div>
           <strong>בולגריאן ספליט סקוואט:</strong> 3 × 8–10 לכל רגל <span class="muscle-name">(עובד על שריר הישבן + ארבע-ראשי מבודד)</span>
           <span class="weight-instruction">📌 משקל מוצע: רגל על ספה + דאמבלס 10 ק"ג / ווסט משקל.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=bulgarian+split+squat+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('בולגריאן ספליט סקוואט', '🦵', 'רגל אחורית על ספה, ירידה אנכית מבוקרת ודחיפה מהעקב של הרגל הקדמית.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -451,7 +544,7 @@
         <div>
           <strong>דדליפט קלאסי עם מוט:</strong> 3 × 6–8 <span class="muscle-name">(עובד על שרירי הגב התחתון, ישבן וירך אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד (טכניקה נקייה ומבוקרת).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=barbell+deadlift+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('דדליפט קלאסי עם מוט', '🏋️‍♂️', 'מוט צמוד לשוקיים, גב ישר לגמרי, נעילת אגן מלאה בשיא העלייה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -460,7 +553,7 @@
         <div>
           <strong>עליות תאומים בעמידה:</strong> 4 × 15–20 <span class="muscle-name">(עובד על שריר השוקיים - תאומים)</span>
           <span class="weight-instruction">📌 משקל מוצע: ווסט משקל / דאמבל 17.5 ק"ג (2 שנ' עצירה במתיחה).</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=standing+calf+raise+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('עליות תאומים בעמידה', '🦶', 'עלייה גבוהה על קצות הבהונות, עצירה של 2 שניות בשיא הכיווץ וירידה מבוקרת.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
@@ -469,36 +562,193 @@
         <div>
           <strong>פלאנק מבוקר (Hollow):</strong> 3 × 45–60 שניות <span class="muscle-name">(עובד על חיזוק וייצוב קיר הבטן הפנימי)</span>
           <span class="weight-instruction">📌 דגש: שאיבת בטן פנימה וכיווץ ישבן חזק.</span>
-          <a class="video-link-btn" href="https://www.youtube.com/results?search_query=hollow+body+plank+form+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+          <button class="demo-btn" onclick="showDemo('פלאנק מבוקר (Hollow)', '🛡️', 'שאיבת טבור פנימה, כיווץ ישבן חזק וגוף בקו אחיד וישר ללא שקיעה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
     </div>
 
-    <!-- שישי -->
+    <!-- שישי: סינדי בלבד -->
     <div class="card">
       <span class="badge">יום שישי</span>
-      <h2>קונדישנינג ומטבולי (15–20 דק')</h2>
+      <h2>קונדישנינג – פרוטוקול סינדי בלבד (15 דק')</h2>
+      
+      <p style="color:var(--muted); font-size:0.85rem; margin-top:2px;">פרוטוקול Cindy AMRAP (15 דקות בקצב אחיד ומדוד):</p>
 
-      <!-- מסלול סינדי -->
-      <div style="background:var(--card-inner); padding:10px; border-radius:10px; margin-bottom:10px;">
-        <strong style="color:var(--accent);">מסלול א': פרוטוקול סינדי (Cindy AMRAP 15 דק')</strong>
-        <label class="todo-item"><input type="checkbox" id="c1"><div><strong>5 עליות מתח:</strong> <span class="muscle-name">(גב)</span></div></label>
-        <label class="todo-item"><input type="checkbox" id="c2"><div><strong>10 שכיבות סמיכה:</strong> <span class="muscle-name">(חזה ויד אחורית)</span></div></label>
-        <label class="todo-item"><input type="checkbox" id="c3"><div><strong>15 סקוואט משקל גוף:</strong> <span class="muscle-name">(רגליים)</span></div></label>
-        <a class="video-link-btn" href="https://www.youtube.com/results?search_query=crossfit+cindy+workout+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
-      </div>
-
-      <!-- מסלול באטמן -->
       <div style="background:var(--card-inner); padding:10px; border-radius:10px;">
-        <strong style="color:var(--accent);">מסלול ב': באטמן קומפלקס מוט (4–6 סיבובים ללא הנחה)</strong>
-        <label class="todo-item"><input type="checkbox" id="b1"><div><strong>6 דדליפט</strong> + <strong>6 חתירה בכיפוף</strong></div></label>
-        <label class="todo-item"><input type="checkbox" id="b2"><div><strong>6 פאוור קלין</strong> + <strong>6 פרונט סקוואט</strong></div></label>
-        <label class="todo-item"><input type="checkbox" id="b3"><div><strong>6 שולדר פרס</strong> + <strong>6 בק סקוואט</strong> (מוט 20 ק"ג)</div></label>
-        <a class="video-link-btn" href="https://www.youtube.com/results?search_query=barbell+complex+workout+shorts" target="_blank">🎬 סרטון הדגמה מהיר</a>
+        <label class="todo-item"><input type="checkbox" id="c1"><div><strong>5 עליות מתח:</strong> <span class="muscle-name">(גב רחב וזרועות)</span></div></label>
+        <label class="todo-item"><input type="checkbox" id="c2"><div><strong>10 שכיבות סמיכה:</strong> <span class="muscle-name">(חזה ויד אחורית)</span></div></label>
+        <label class="todo-item"><input type="checkbox" id="c3"><div><strong>15 סקוואט משקל גוף:</strong> <span class="muscle-name">(ארבע-ראשי וישבן)</span></div></label>
+        <button class="demo-btn" onclick="showDemo('פרוטוקול סינדי (Cindy)', '⏱️', '5 מתח + 10 שכיבות סמיכה + 15 סקוואט משקל גוף. שמור על קצב עבודה רציף ומדוד למשך 15 דקות.')">🎬 צפה בהדגמת תרגיל</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== חלק 2: תזונה ==================== -->
-  <div id="section-nutrition" style="margin-top: 30px; padding-top: 15px; border-top: 2px solid #334e68;">
-    <h1 style="color:var(--accent); font-size:1.3rem; margin-bo
+  <!-- ==================== תצוגת תזונה ==================== -->
+  <div id="view-nutrition" class="tab-view">
+    <h1 style="color:var(--accent); font-size:1.3rem; margin-bottom:12px;">🥗 תפריט 3 ארוחות (~1,900 קק"ל)[span_0](start_span)[span_0](end_span)</h1>
+    
+    <!-- סיכום ערכים יומי -->
+    <div class="macro-bar">
+      <div class="macro-item"><strong>~1,900</strong>קלוריות</div>
+      <div class="macro-item"><strong>~160 גרם</strong>חלבון</div>
+      <div class="macro-item"><strong>~145 גרם</strong>פחמימה</div>
+      <div class="macro-item"><strong>~70 גרם</strong>שומן</div>
+    </div>
+
+    <!-- ארוחה 1 -->
+    <div class="card">
+      <span class="badge">ארוחה 1 • בוקר בבית (~650 קק"ל | ~58 גרם חלבון)[span_1](start_span)[span_1](end_span)</span>
+      <label class="todo-item"><input type="checkbox" id="m1"><div><strong>שייק חלבון עשיר:</strong> סקופ WHEY + 4 כפות שיבולת שועל (40 גרם) + כפית צ'יה + כוס חלב/מים[span_2](start_span)[span_2](end_span)</div></label>
+      <label class="todo-item"><input type="checkbox" id="m2"><div><strong>ביצים:</strong> 2 ביצים קשות (גודל L)[span_3](start_span)[span_3](end_span)</div></label>
+      <label class="todo-item"><input type="checkbox" id="m3"><div><strong>פחמימה וגבינה:</strong> 2 פרוסות לחם מלא/מחמצת + כף גבינה לבנה 5% + ירקות חופשי (מלפפון, עגבנייה)[span_4](start_span)[span_4](end_span)</div></label>
+    </div>
+
+    <!-- ארוחה 2 -->
+    <div class="card">
+      <span class="badge">ארוחה 2 • צהריים בעבודה (~550 קק"ל | ~48 גרם חלבון)[span_5](start_span)[span_5](end_span)</span>
+      <label class="todo-item"><input type="checkbox" id="m4"><div><strong>מנת חלבון נקייה:</strong> 180–200 גרם חזה עוף בגריל / כרע עוף / 2 פילטים אמנון אפוי[span_6](start_span)[span_6](end_span)</div></label>
+      <label class="todo-item"><input type="checkbox" id="m5"><div><strong>פחמימה מורכבת:</strong> 4–5 כפות אורז מבושל / קינואה / תפוח אדמה אפוי[span_7](start_span)[span_7](end_span)</div></label>
+      <label class="todo-item"><input type="checkbox" id="m6"><div><strong>ירקות ומרק:</strong> צלחת מרק ירקות/עגבניות + סלט ירקות טרי עם כפית שמן זית ולימון[span_8](start_span)[span_8](end_span)</div></label>
+    </div>
+
+    <!-- ארוחה 3 -->
+    <div class="card">
+      <span class="badge">ארוחה 3 • ערב בבית (~700 קק"ל | ~55 גרם חלבון)[span_9](start_span)[span_9](end_span)</span>
+      <p style="color:var(--muted); font-size:0.85rem; margin-top:2px;">בחר אופציה אחת לסגירת היום:</p>
+      
+      <label class="todo-item"><input type="checkbox" id="m7"><div><strong>אופציה א' (סרדינים וטחינה):</strong> 2 קופסאות סרדינים מסוננות + 2 ביצים + סלט כרוב עשיר + 2 כפות טחינה גולמית + יוגורט חלבון 20 גרם[span_10](start_span)[span_10](end_span)</div></label>
+      
+      <label class="todo-item"><input type="checkbox" id="m8"><div><strong>אופציה ב' (שקשוקה גבינות):</strong> שקשוקה 3 ביצים ברוטב עגבניות + 100 גרם פטה/חמד 5% + 2 פרוסות לחם מחמצת + סלט אישי + יוגורט חלבון[span_11](start_span)[span_11](end_span)</div></label>
+      
+      <label class="todo-item"><input type="checkbox" id="m9"><div><strong>אופציה ג' (פלטה קרה):</strong> גביע קוטג' 5% + קופסת טונה/סרדינים + 2 ביצים קשות + 2 לחם קלוי + כף טחינה גולמית וסלט[span_12](start_span)[span_12](end_span)</div></label>
+    </div>
+  </div>
+
+  <!-- חלון הדגמה מובנה בתוך האפליקציה -->
+  <div id="demoModal" class="demo-modal" onclick="closeDemo(event)">
+    <div class="demo-content" onclick="event.stopPropagation()">
+      <div class="demo-header">
+        <h3 id="demoTitle">הדגמת תרגיל</h3>
+        <button class="close-btn" onclick="closeDemoDirect()">✕</button>
+      </div>
+      <div class="demo-body">
+        <div id="demoIcon" class="anim-display">🏋️‍♂️</div>
+        <div class="tips-box">
+          <strong>📋 דגש טכני קריטי:</strong>
+          <span id="demoText" style="color: #f8fafc;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ניווט תחתון קבוע -->
+  <div class="nav">
+    <button id="navBtnWorkout" class="active" onclick="showTab('workout')">🏋️ אימונים ומעקב</button>
+    <button id="navBtnNutrition" onclick="showTab('nutrition')">🥗 תפריט תזונה</button>
+  </div>
+
+  <script>
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
+      document.querySelectorAll('.top-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('active'));
+
+      if (tabName === 'workout') {
+        document.getElementById('view-workout').classList.add('active');
+        document.getElementById('topBtnWorkout').classList.add('active');
+        document.getElementById('navBtnWorkout').classList.add('active');
+      } else {
+        document.getElementById('view-nutrition').classList.add('active');
+        document.getElementById('topBtnNutrition').classList.add('active');
+        document.getElementById('navBtnNutrition').classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showDemo(title, icon, text) {
+      document.getElementById('demoTitle').innerText = title;
+      document.getElementById('demoIcon').innerText = icon;
+      document.getElementById('demoText').innerText = text;
+      document.getElementById('demoModal').classList.add('active');
+    }
+
+    function closeDemoDirect() {
+      document.getElementById('demoModal').classList.remove('active');
+    }
+
+    function closeDemo(event) {
+      if (event.target.id === 'demoModal') {
+        closeDemoDirect();
+      }
+    }
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      const saved = localStorage.getItem(cb.id);
+      if (saved === 'true') cb.checked = true;
+      cb.addEventListener('change', () => {
+        localStorage.setItem(cb.id, cb.checked);
+      });
+    });
+
+    function toggleWeek(num) {
+      const btn = document.getElementById('w' + num);
+      const cb = btn.querySelector('input');
+      if (cb.checked) {
+        btn.classList.add('checked');
+        localStorage.setItem('week_' + num, 'true');
+      } else {
+        btn.classList.remove('checked');
+        localStorage.removeItem('week_' + num);
+      }
+      updateWeekCount();
+    }
+
+    function updateWeekCount() {
+      let count = 0;
+      for (let i = 1; i <= 8; i++) {
+        if (localStorage.getItem('week_' + i) === 'true') {
+          count++;
+          const btn = document.getElementById('w' + i);
+          if (btn) {
+            btn.classList.add('checked');
+            btn.querySelector('input').checked = true;
+          }
+        }
+      }
+      document.getElementById('completedWeeksCount').innerText = count + '/8 שבועות';
+    }
+    updateWeekCount();
+
+    function resetTasks() {
+      if (confirm("לאפס את סימוני האימונים והתזונה של השבוע הנוכחי?")) {
+        checkboxes.forEach(cb => {
+          if (!cb.id.startsWith('w')) {
+            cb.checked = false;
+            localStorage.removeItem(cb.id);
+          }
+        });
+      }
+    }
+
+    let timerInterval;
+    function startTimer(seconds) {
+      clearInterval(timerInterval);
+      let timeLeft = seconds;
+      const display = document.getElementById('timerDisplay');
+      display.style.color = '#38bdf8';
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        display.innerText = timeLeft + ' שנ\'';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          display.innerText = 'צא לסט הבא! 🔥';
+          display.style.color = '#22c55e';
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
