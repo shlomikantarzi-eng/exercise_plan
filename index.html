@@ -6,12 +6,16 @@
   <title>Recomp Master Plan</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
+      --bg: #0b1329;
+      --card: #152238;
+      --card-inner: #1c2e4a;
       --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
       --text: #f8fafc;
       --muted: #94a3b8;
       --success: #22c55e;
+      --muscle-tag: #e0f2fe;
+      --muscle-bg: #0369a1;
     }
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -19,47 +23,128 @@
       color: var(--text);
       margin: 0;
       padding: 16px;
-      padding-bottom: 80px;
+      padding-bottom: 95px;
     }
-    h1, h2, h3 { color: var(--accent); margin-top: 0; }
-    .card {
+    h1 { color: var(--accent); font-size: 1.45rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    h2 { color: #fff; font-size: 1.15rem; margin: 4px 0 10px 0; }
+    
+    /* שבועות */
+    .weeks-tracker {
       background: var(--card);
       border-radius: 12px;
-      padding: 16px;
+      padding: 12px;
       margin-bottom: 16px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+      border: 1px solid #1e3a5f;
+    }
+    .weeks-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .week-btn {
+      background: var(--card-inner);
+      border: 1px solid #334e68;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 6px 2px;
+      text-align: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .week-btn input { display: none; }
+    .week-btn.checked {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* כרטיסיות */
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: 1px solid #1e293b;
     }
     .badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
+      background: var(--accent-glow);
       color: var(--accent);
-      padding: 4px 8px;
+      padding: 3px 8px;
       border-radius: 6px;
-      font-size: 0.85rem;
-      margin-bottom: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .muscle-badge {
+      display: inline-block;
+      background: var(--muscle-bg);
+      color: var(--muscle-tag);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-right: 4px;
     }
     .todo-item {
       display: flex;
-      align-items: center;
-      margin: 8px 0;
-      font-size: 0.95rem;
+      align-items: flex-start;
+      margin: 12px 0;
+      font-size: 0.92rem;
+      cursor: pointer;
+      line-height: 1.35;
     }
     .todo-item input {
       margin-left: 10px;
-      width: 18px;
-      height: 18px;
+      margin-top: 2px;
+      width: 20px;
+      height: 20px;
       accent-color: var(--accent);
+      flex-shrink: 0;
     }
+    .todo-item .weight-tag {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 3px;
+    }
+
+    /* טיימר מנוחה */
+    .timer-bar {
+      background: var(--card-inner);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+    .timer-btn {
+      background: #0284c7;
+      border: none;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    /* ניווט */
     .nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: var(--card);
+      background: #0f172a;
       display: flex;
       justify-content: space-around;
       padding: 12px 0;
-      border-top: 1px solid #334155;
+      border-top: 1px solid #1e293b;
+      z-index: 100;
     }
     .nav button {
       background: none;
@@ -74,97 +159,147 @@
     }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    .reset-btn {
+      background: none;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- אימונים -->
+  <!-- טאב אימונים -->
   <div id="workout" class="tab-content active">
-    <h1>🏋️ תוכנית אימונים שבועית</h1>
+    <h1>
+      <span>🏋️ תוכנית אימונים (Master)</span>
+      <button class="reset-btn" onclick="resetTasks()">אפס סימונים</button>
+    </h1>
 
+    <!-- מעקב שבועות 1-12 -->
+    <div class="weeks-tracker">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <strong style="font-size:0.9rem;">🎯 מעקב שבועות:</strong>
+        <span id="completedWeeksCount" style="color:var(--accent); font-size:0.85rem;">0/12 שבועות</span>
+      </div>
+      <div class="weeks-grid">
+        <label class="week-btn" id="w1"><input type="checkbox" onchange="toggleWeek(1)"> שבוע 1</label>
+        <label class="week-btn" id="w2"><input type="checkbox" onchange="toggleWeek(2)"> שבוע 2</label>
+        <label class="week-btn" id="w3"><input type="checkbox" onchange="toggleWeek(3)"> שבוע 3</label>
+        <label class="week-btn" id="w4"><input type="checkbox" onchange="toggleWeek(4)"> שבוע 4</label>
+        <label class="week-btn" id="w5"><input type="checkbox" onchange="toggleWeek(5)"> שבוע 5</label>
+        <label class="week-btn" id="w6"><input type="checkbox" onchange="toggleWeek(6)"> שבוע 6</label>
+        <label class="week-btn" id="w7"><input type="checkbox" onchange="toggleWeek(7)"> שבוע 7</label>
+        <label class="week-btn" id="w8"><input type="checkbox" onchange="toggleWeek(8)"> שבוע 8</label>
+        <label class="week-btn" id="w9"><input type="checkbox" onchange="toggleWeek(9)"> שבוע 9</label>
+        <label class="week-btn" id="w10"><input type="checkbox" onchange="toggleWeek(10)"> שבוע 10</label>
+        <label class="week-btn" id="w11"><input type="checkbox" onchange="toggleWeek(11)"> שבוע 11</label>
+        <label class="week-btn" id="w12"><input type="checkbox" onchange="toggleWeek(12)"> שבוע 12</label>
+      </div>
+    </div>
+
+    <!-- טיימר מנוחה -->
+    <div class="timer-bar">
+      <span>⏱️ מנוחה בין סטים: <strong id="timerDisplay">מוכן</strong></span>
+      <div>
+        <button class="timer-btn" onclick="startTimer(60)">60 שנ'</button>
+        <button class="timer-btn" onclick="startTimer(90)">90 שנ'</button>
+      </div>
+    </div>
+
+    <!-- ראשון -->
     <div class="card">
       <span class="badge">ראשון</span>
       <h2>עליון A (חזה + כתף אמצעית)</h2>
-      <label class="todo-item"><input type="checkbox"> לחיצת חזה: 4 × 8–12 (טמפו איטי)</label>
-      <label class="todo-item"><input type="checkbox"> עליות מתח: 4 × 6–10</label>
-      <label class="todo-item"><input type="checkbox"> הרחקות לצדדים: 4 × 15–20</label>
-      <label class="todo-item"><input type="checkbox"> שכיבות סמיכה בטבעות: 3 סטים</label>
-      <label class="todo-item"><input type="checkbox"> יד קדמית: 3 × 10–12</label>
+      <label class="todo-item"><input type="checkbox" id="t1"><div><span class="muscle-badge">חזה גדול + יד אחורית</span><strong>לחיצת חזה על ספה:</strong> 4 × 8–12<span class="weight-tag">📌 17.5 ק"ג דאמבלס / מוט (3 שנ' ירידה מבוקרת)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t2"><div><span class="muscle-badge">גב רחב + יד קדמית</span><strong>עליות מתח:</strong> 4 × 6–10<span class="weight-tag">📌 משקל גוף + אפוד משקל לפי יכולת</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t3"><div><span class="muscle-badge">כתף אמצעית (מבנה V)</span><strong>הרחקות לצדדים:</strong> 4 × 15–20<span class="weight-tag">📌 5–8 ק"ג (ללא תנופה, דגש על שריפה ומילוי הכתף)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t4"><div><span class="muscle-badge">חזה + מייצבי כתף</span><strong>שכיבות סמיכה בטבעות:</strong> 3 סטים<span class="weight-tag">📌 עד חזרה 1 מכשל (מתיחה עמוקה)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t5"><div><span class="muscle-badge">יד קדמית (Biceps)</span><strong>כפיפות מרפקים:</strong> 3 × 10–12<span class="weight-tag">📌 8–10 ק"ג דאמבלס</span></div></label>
     </div>
 
+    <!-- שני -->
     <div class="card">
       <span class="badge">שני</span>
-      <h2>תחתון A + ליבה</h2>
-      <label class="todo-item"><input type="checkbox"> סקוואט (מוט/דאמבלס): 4 × 8–12</label>
-      <label class="todo-item"><input type="checkbox"> לאנג'ים: 3 × 10 לכל רגל</label>
-      <label class="todo-item"><input type="checkbox"> RDL: 3 × 10–12</label>
-      <label class="todo-item"><input type="checkbox"> גלגל בטן: 3 × 8–12</label>
+      <h2>תחתון A + ליבה עמוקה</h2>
+      <label class="todo-item"><input type="checkbox" id="t6"><div><span class="muscle-badge">ארבע-ראשי + ישבן</span><strong>סקוואט:</strong> 4 × 8–12<span class="weight-tag">📌 מוט 20 ק"ג / דאמבלס 17.5 + אפוד (ירידה איטית)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t7"><div><span class="muscle-badge">ישבן + מייצבי ירך</span><strong>לאנג'ים:</strong> 3 × 10 לכל רגל<span class="weight-tag">📌 10–17.5 ק"ג דאמבלס</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t8"><div><span class="muscle-badge">המסטרינגס (ירך אחורית)</span><strong>רומניאן דדליפט (RDL):</strong> 3 × 10–12<span class="weight-tag">📌 מוט / דאמבלס (דגש מתיחה ושמירה על גב ישר)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t9"><div><span class="muscle-badge">בטן רוחבית (הידוק מותניים)</span><strong>גלגל בטן (Ab Wheel):</strong> 3 × 8–12<span class="weight-tag">📌 שאיבת בטן פנימה (ללא עבודה על אלכסונים)</span></div></label>
     </div>
 
+    <!-- שלישי -->
     <div class="card">
       <span class="badge">שלישי</span>
       <h2>LISS + התאוששות אקטיבית</h2>
-      <label class="todo-item"><input type="checkbox"> הליכת בוקר 05:30–06:30 (60 דק')</label>
-      <label class="todo-item"><input type="checkbox"> מתיחות ושחרור</label>
+      <label class="todo-item"><input type="checkbox" id="t10"><div><span class="muscle-badge">שריפת שומן + לב-ריאה</span><strong>הליכת בוקר 05:30–06:30 (60 דק'):</strong> קצב מהיר רציף<span class="weight-tag">📌 שריפת שומן בטני ומותני ללא סטרס שרירי</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t11"><div><span class="muscle-badge">מפרקים ושיקום</span><strong>מתיחות וניידות:</strong><span class="weight-tag">📌 שחרור מפרקי הכתפיים ושורש כף היד</span></div></label>
     </div>
 
+    <!-- רביעי -->
     <div class="card">
       <span class="badge">רביעי</span>
       <h2>עליון B (גב + כתף אמצעית)</h2>
-      <label class="todo-item"><input type="checkbox"> לחיצת כתפיים (OHP): 4 × 8–12</label>
-      <label class="todo-item"><input type="checkbox"> חתירה בכיפוף: 4 × 8–10</label>
-      <label class="todo-item"><input type="checkbox"> טבילות (Dips) בטבעות: 3 × 8–10</label>
-      <label class="todo-item"><input type="checkbox"> הרחקות לצדדים בהטיה: 4 × 15–20</label>
-      <label class="todo-item"><input type="checkbox"> יד אחורית: 3 × 12–15</label>
+      <label class="todo-item"><input type="checkbox" id="t12"><div><span class="muscle-badge">כתף קדמית ואמצעית</span><strong>לחיצת כתפיים (OHP):</strong> 4 × 8–12<span class="weight-tag">📌 מוט / 10–17.5 ק"ג דאמבלס</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t13"><div><span class="muscle-badge">גב אמצעי + טרפזים</span><strong>חתירה בכיפוף (Row):</strong> 4 × 8–10<span class="weight-tag">📌 מוט / 17.5 ק"ג דאמבלס</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t14"><div><span class="muscle-badge">חזה תחתון + יד אחורית</span><strong>טבילות (Dips) בטבעות:</strong> 3 × 8–10<span class="weight-tag">📌 משקל גוף / אפוד משקל</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t15"><div><span class="muscle-badge">כתף אמצעית ואחורית</span><strong>הרחקות לצדדים בהטיה קלה:</strong> 4 × 15–20<span class="weight-tag">📌 5–8 ק"ג (עיבוי רוחב הכתף)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t16"><div><span class="muscle-badge">יד אחורית (Triceps)</span><strong>פשיטת מרפקים מאחורי הראש:</strong> 3 × 12–15<span class="weight-tag">📌 8–10 ק"ג דאמבל</span></div></label>
     </div>
 
+    <!-- חמישי -->
     <div class="card">
       <span class="badge">חמישי</span>
       <h2>תחתון B + ליבה</h2>
-      <label class="todo-item"><input type="checkbox"> בולגריאן ספליט סקוואט: 3 × 8–10</label>
-      <label class="todo-item"><input type="checkbox"> דדליפט קלאסי: 3 × 6–8</label>
-      <label class="todo-item"><input type="checkbox"> עליות תאומים: 4 × 15–20</label>
-      <label class="todo-item"><input type="checkbox"> פלאנק מבוקר: 3 × 45–60 שנ'</label>
+      <label class="todo-item"><input type="checkbox" id="t17"><div><span class="muscle-badge">ישבן + ארבע-ראשי מבודד</span><strong>בולגריאן ספליט סקוואט:</strong> 3 × 8–10 לכל רגל<span class="weight-tag">📌 רגל על ספה + דאמבלס 10 ק"ג</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t18"><div><span class="muscle-badge">שרשרת אחורית וזוקפי גב</span><strong>דדליפט קלאסי:</strong> 3 × 6–8<span class="weight-tag">📌 מוט מבוקר</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t19"><div><span class="muscle-badge">שוקיים (תאומים)</span><strong>עליות תאומים בעמידה:</strong> 4 × 15–20<span class="weight-tag">📌 עם אפוד/משקולת (עצירה של 2 שנ' במתיחה)</span></div></label>
+      <label class="todo-item"><input type="checkbox" id="t20"><div><span class="muscle-badge">בטן סטטית וליבה</span><strong>פלאנק מבוקר (Hollow):</strong> 3 × 45–60 שנ'<span class="weight-tag">📌 כיווץ אגן ושאיבת בטן פנימה</span></div></label>
     </div>
 
+    <!-- שישי -->
     <div class="card">
       <span class="badge">שישי</span>
-      <h2>קונדישנינג (סינדי מתון)</h2>
-      <label class="todo-item"><input type="checkbox"> AMRAP 15 דק': 5 מתח + 10 שכיבות סמיכה + 15 סקוואט</label>
+      <h2>קונדישנינג קצר (15 דק')</h2>
+      <label class="todo-item"><input type="checkbox" id="t21"><div><span class="muscle-badge">סיבולת שריר + שריפת שומן</span><strong>סינדי מתון (AMRAP 15 דק'):</strong><span class="weight-tag">📌 5 מתח (גב) + 10 שכיבות סמיכה (חזה) + 15 סקוואט (רגליים)</span></div></label>
     </div>
   </div>
 
-  <!-- תזונה -->
+  <!-- טאב תזונה -->
   <div id="nutrition" class="tab-content">
-    <h1>🥗 תפריט 3 ארוחות (~1,900 קק"ל)</h1>
+    <h1><span>🥗 תפריט 3 ארוחות (~1,900 קק"ל)</span></h1>
 
     <div class="card">
-      <span class="badge">בוקר (~650 קק"ל | ~58 גרם חלבון)</span>
-      <label class="todo-item"><input type="checkbox"> שייק: סקופ WHEY + 4 כפות שיבולת שועל + כפית צ'יה + חלב/מים</label>
-      <label class="todo-item"><input type="checkbox"> 2 ביצים קשות</label>
-      <label class="todo-item"><input type="checkbox"> 2 פרוסות לחם מלא + כף גבינה לבנה 5% + ירקות</label>
+      <span class="badge">ארוחה 1 • בוקר בבית (~650 קק"ל | ~58 גרם חלבון)</span>
+      <label class="todo-item"><input type="checkbox" id="m1"><div>שייק: סקופ WHEY + 4 כפות שיבולת שועל + כפית צ'יה + כוס חלב/מים</div></label>
+      <label class="todo-item"><input type="checkbox" id="m2"><div>2 ביצים קשות (L)</div></label>
+      <label class="todo-item"><input type="checkbox" id="m3"><div>2 פרוסות לחם מלא/מחמצת + כף גבינה לבנה 5% + ירקות</div></label>
     </div>
 
     <div class="card">
-      <span class="badge">צהריים בעבודה (~550 קק"ל | ~48 גרם חלבון)</span>
-      <label class="todo-item"><input type="checkbox"> 180–200 גרם חזה/כרע עוף או 2 פילטים אמנון</label>
-      <label class="todo-item"><input type="checkbox"> 4–5 כפות אורז מבושל / תפוח אדמה</label>
-      <label class="todo-item"><input type="checkbox"> מרק ירקות + סלט עם כפית שמן זית</label>
+      <span class="badge">ארוחה 2 • צהריים בעבודה (~550 קק"ל | ~48 גרם חלבון)</span>
+      <label class="todo-item"><input type="checkbox" id="m4"><div>180–200 גרם חזה/כרע עוף או 2 פילטים אמנון</div></label>
+      <label class="todo-item"><input type="checkbox" id="m5"><div>4–5 כפות אורז מבושל / תפוח אדמה אפוי</div></label>
+      <label class="todo-item"><input type="checkbox" id="m6"><div>מרק ירקות/עגבניות + סלט טרי עם כפית שמן זית</div></label>
     </div>
 
     <div class="card">
-      <span class="badge">ערב בבית (~700 קק"ל | ~55 גרם חלבון)</span>
-      <p style="color: var(--muted); font-size: 0.9rem;">בחר אופציה אחת:</p>
-      <label class="todo-item"><input type="checkbox"> א': 2 קופסאות סרדינים + 2 ביצים + סטייק כרוב/סלט + 2 כפות טחינה + יוגורט חלבון</label>
-      <label class="todo-item"><input type="checkbox"> ב': שקשוקה 3 ביצים + 100 גרם פטה/חמד 5% + 2 לחם מחמצת + סלט + יוגורט חלבון</label>
-      <label class="todo-item"><input type="checkbox"> ג': קוטג' 5% + טונה/סרדינים + 2 ביצים + 2 לחם קלוי + טחינה וסלט</label>
+      <span class="badge">ארוחה 3 • ערב בבית (~700 קק"ל | ~55 גרם חלבון)</span>
+      <p style="color:var(--muted); font-size:0.85rem; margin-top:2px;">בחר אופציה אחת לסגירת הערב:</p>
+      <label class="todo-item"><input type="checkbox" id="m7"><div><strong>אופציה א':</strong> 2 קופסאות סרדינים + 2 ביצים + סטייק כרוב/סלט + 2 כפות טחינה + יוגורט חלבון</div></label>
+      <label class="todo-item"><input type="checkbox" id="m8"><div><strong>אופציה ב' (שקשוקה):</strong> 3 ביצים + 100 גרם פטה/חמד 5% + 2 פרוסות לחם מחמצת + סלט + יוגורט חלבון</div></label>
+      <label class="todo-item"><input type="checkbox" id="m9"><div><strong>אופציה ג' (פלטה קרה):</strong> קוטג' 5% + קופסת טונה/סרדינים + 2 ביצים + 2 לחם קלוי + טחינה וסלט</div></label>
     </div>
   </div>
 
   <!-- ניווט תחתון -->
   <div class="nav">
-    <button class="active" onclick="switchTab('workout')">אימונים</button>
-    <button onclick="switchTab('nutrition')">תזונה</button>
+    <button class="active" onclick="switchTab('workout')">🏋️ אימונים ומעקב</button>
+    <button onclick="switchTab('nutrition')">🥗 תפריט תזונה</button>
   </div>
 
   <script>
@@ -173,6 +308,74 @@
       document.querySelectorAll('.nav button').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       event.target.classList.add('active');
+    }
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      const saved = localStorage.getItem(cb.id);
+      if (saved === 'true') cb.checked = true;
+      cb.addEventListener('change', () => {
+        localStorage.setItem(cb.id, cb.checked);
+      });
+    });
+
+    function toggleWeek(num) {
+      const btn = document.getElementById('w' + num);
+      const cb = btn.querySelector('input');
+      if (cb.checked) {
+        btn.classList.add('checked');
+        localStorage.setItem('week_' + num, 'true');
+      } else {
+        btn.classList.remove('checked');
+        localStorage.removeItem('week_' + num);
+      }
+      updateWeekCount();
+    }
+
+    function updateWeekCount() {
+      let count = 0;
+      for (let i = 1; i <= 12; i++) {
+        if (localStorage.getItem('week_' + i) === 'true') {
+          count++;
+          const btn = document.getElementById('w' + i);
+          if (btn) {
+            btn.classList.add('checked');
+            btn.querySelector('input').checked = true;
+          }
+        }
+      }
+      document.getElementById('completedWeeksCount').innerText = count + '/12 שבועות';
+    }
+    updateWeekCount();
+
+    function resetTasks() {
+      if (confirm("לאפס את סימוני האימונים והתזונה של השבוע הנוכחי?")) {
+        checkboxes.forEach(cb => {
+          if (!cb.id.startsWith('w')) {
+            cb.checked = false;
+            localStorage.removeItem(cb.id);
+          }
+        });
+      }
+    }
+
+    let timerInterval;
+    function startTimer(seconds) {
+      clearInterval(timerInterval);
+      let timeLeft = seconds;
+      const display = document.getElementById('timerDisplay');
+      display.style.color = '#38bdf8';
+      
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        display.innerText = timeLeft + ' שנ\'';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          display.innerText = 'צא לסט הבא! 🔥';
+          display.style.color = '#22c55e';
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        }
+      }, 1000);
     }
   </script>
 </body>
