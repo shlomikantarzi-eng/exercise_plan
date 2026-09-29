@@ -143,6 +143,17 @@
       margin-bottom: 8px;
       border: 1px solid rgba(34, 197, 94, 0.3);
     }
+    .badge-evening {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.25);
+      color: #38bdf8;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
     .badge-new {
       display: inline-block;
       background: rgba(245, 158, 11, 0.2);
@@ -379,10 +390,10 @@
       </div>
     </div>
 
-    <!-- 1. יום ראשון: אימון כוח -->
+    <!-- יום ראשון: עליון A + הליכת ערב -->
     <div class="card">
-      <span class="badge">יום ראשון | בוקר/צהריים</span>
-      <h2>עליון A (חזה + כתף אמצעית)</h2>
+      <span class="badge">יום ראשון</span>
+      <h2>עליון A (חזה + כתף אמצעית) + הליכת ערב</h2>
       
       <label class="todo-item">
         <input type="checkbox" id="t1">
@@ -428,23 +439,19 @@
           <button class="demo-btn" onclick="showDemo('כפיפות מרפקים לדאמבלס', 'ykJmrZ5v0Oo', 'מרפקים נעולים צמודים לצלעות, עלייה מבוקרת עם כיווץ שיא וירידה מלאה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
-    </div>
 
-    <!-- 2. יום ראשון: רובריקת הליכון ערב -->
-    <div class="card">
-      <span class="badge-cardio">יום ראשון | ערב</span>
-      <h2>הליכת התאוששות קלה בהליכון</h2>
-      <label class="todo-item">
+      <!-- הליכת ערב משולבת בקוביית יום ראשון -->
+      <label class="todo-item" style="border-top:1px dashed #334e68; padding-top:10px; margin-top:10px;">
         <input type="checkbox" id="t6">
         <div>
-          <span class="badge-new">הליכון ערב</span>
-          <strong>הליכת התאוששות ביתית:</strong> 30–40 דק' <span class="muscle-name">(הוצאה אנרגטית וזרימת דם)</span>
-          <span class="weight-instruction">📌 קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. מומלץ לאחר ארוחת הערב להורדת סוכר ולשיפור התאוששות.</span>
+          <span class="badge-evening">אימון ערב</span>
+          <strong>הליכת התאוששות קלה בהליכון:</strong> 30–40 דק' <span class="muscle-name">(שריפת שומן וזרימת דם)</span>
+          <span class="weight-instruction">📌 מבוצע בערב לאחר הארוחה: קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. מעודד התאוששות והורדת סוכר.</span>
         </div>
       </label>
     </div>
 
-    <!-- 3. יום שני: אימון כוח -->
+    <!-- יום שני: תחתון A -->
     <div class="card">
       <span class="badge">יום שני</span>
       <h2>תחתון A + שילוב רצועת קרסול ראשונית</h2>
@@ -496,7 +503,7 @@
       </label>
     </div>
 
-    <!-- 4. יום שלישי: רובריקת הליכון מרכזית LISS -->
+    <!-- יום שלישי: רובריקת הליכון מרכזית LISS -->
     <div class="card">
       <span class="badge-cardio">יום שלישי | אימון אירובי מרכזי</span>
       <h2>התאוששות אקטיבית והליכון ביתי LISS</h2>
@@ -519,10 +526,10 @@
       </label>
     </div>
 
-    <!-- 5. יום רביעי: אימון כוח -->
+    <!-- יום רביעי: עליון B + הליכת ערב -->
     <div class="card">
-      <span class="badge">יום רביעי | בוקר/צהריים</span>
-      <h2>עליון B (גב + כתף אמצעית)</h2>
+      <span class="badge">יום רביעי</span>
+      <h2>עליון B (גב + כתף אמצעית) + הליכת ערב</h2>
 
       <label class="todo-item">
         <input type="checkbox" id="t14">
@@ -568,23 +575,19 @@
           <button class="demo-btn" onclick="showDemo('פשיטת מרפקים ליד אחורית', 'nRiJVZDpdL0', 'מרפקים קרובים לראש, ירידה מאחורי העורף ופשיטה מלאה למעלה.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
-    </div>
 
-    <!-- 6. יום רביעי: רובריקת הליכון ערב -->
-    <div class="card">
-      <span class="badge-cardio">יום רביעי | ערב</span>
-      <h2>הליכת התאוששות קלה בהליכון</h2>
-      <label class="todo-item">
+      <!-- הליכת ערב משולבת בקוביית יום רביעי -->
+      <label class="todo-item" style="border-top:1px dashed #334e68; padding-top:10px; margin-top:10px;">
         <input type="checkbox" id="t19">
         <div>
-          <span class="badge-new">הליכון ערב</span>
-          <strong>הליכת שחרור והוצאה קלורית:</strong> 30–40 דק' <span class="muscle-name">(ניקוי חומצת חלב וזרימת דם)</span>
-          <span class="weight-instruction">📌 קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. תנועה רציפה ונעימה.</span>
+          <span class="badge-evening">אימון ערב</span>
+          <strong>הליכת התאוששות קלה בהליכון:</strong> 30–40 דק' <span class="muscle-name">(הוצאה אנרגטית ללא עומס)</span>
+          <span class="weight-instruction">📌 מבוצע בערב: קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. תנועה רציפה להזרמת דם.</span>
         </div>
       </label>
     </div>
 
-    <!-- 7. יום חמישי: אימון כוח -->
+    <!-- יום חמישי: תחתון B -->
     <div class="card">
       <span class="badge">יום חמישי</span>
       <h2>תחתון B + פשיטת ברכיים ברצועה וליבה</h2>
@@ -634,7 +637,7 @@
       </label>
     </div>
 
-    <!-- 8. סוף שבוע: רובריקת הליכון סופ"ש -->
+    <!-- סוף שבוע: רובריקת הליכון סופ"ש -->
     <div class="card">
       <span class="badge-cardio">סוף שבוע (שישי או שבת)</span>
       <h2>הליכת סופ"ש בהליכון ביתי</h2>
