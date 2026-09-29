@@ -54,7 +54,6 @@
       color: #fff;
     }
 
-    /* טאבים ראשיים */
     .top-tabs {
       display: flex;
       gap: 8px;
@@ -84,7 +83,6 @@
     h2 { color: #fff; font-size: 1.15rem; margin: 4px 0 10px 0; }
     h3 { color: var(--accent); font-size: 1rem; margin: 10px 0 6px 0; }
     
-    /* מעקב שבועות */
     .weeks-tracker {
       background: var(--card);
       border-radius: 12px;
@@ -116,7 +114,6 @@
       font-weight: bold;
     }
 
-    /* כרטיסיות */
     .card {
       background: var(--card);
       border-radius: 14px;
@@ -134,6 +131,17 @@
       font-size: 0.8rem;
       font-weight: 600;
       margin-bottom: 8px;
+    }
+    .badge-cardio {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
     }
     .badge-new {
       display: inline-block;
@@ -329,7 +337,6 @@
 </head>
 <body>
 
-  <!-- כותרת ממותגת -->
   <div class="brand-header">
     <div class="brand-title">
       <span class="brand-tag">S.K</span>
@@ -338,17 +345,15 @@
     <button class="reset-btn" onclick="resetTasks()">אפס שבוע</button>
   </div>
 
-  <!-- טאבים ראשיים -->
   <div class="top-tabs">
     <button id="topBtnWorkout" class="top-tab-btn active" onclick="showTab('workout')">🏋️ תוכנית אימונים</button>
     <button id="topBtnNutrition" class="top-tab-btn" onclick="showTab('nutrition')">🥗 תפריט ותזונה</button>
     <button id="topBtnVacation" class="top-tab-btn" onclick="showTab('vacation')">🇬🇷 מדריך חופשה ביוון</button>
   </div>
 
-  <!-- ==================== תצוגת אימונים ==================== -->
+  <!-- תצוגת אימונים -->
   <div id="view-workout" class="tab-view active">
 
-    <!-- מעקב 8 שבועות -->
     <div class="weeks-tracker">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <strong style="font-size:0.9rem;">🎯 מעקב תוכנית (8 שבועות להערכה מחדש):</strong>
@@ -366,7 +371,6 @@
       </div>
     </div>
 
-    <!-- טיימר מנוחה -->
     <div class="timer-bar">
       <span>⏱️ מנוחה בין סטים: <strong id="timerDisplay">מוכן</strong></span>
       <div>
@@ -375,9 +379,9 @@
       </div>
     </div>
 
-    <!-- ראשון -->
+    <!-- 1. יום ראשון: אימון כוח -->
     <div class="card">
-      <span class="badge">יום ראשון</span>
+      <span class="badge">יום ראשון | בוקר/צהריים</span>
       <h2>עליון A (חזה + כתף אמצעית)</h2>
       
       <label class="todo-item">
@@ -426,13 +430,27 @@
       </label>
     </div>
 
-    <!-- שני -->
+    <!-- 2. יום ראשון: רובריקת הליכון ערב -->
+    <div class="card">
+      <span class="badge-cardio">יום ראשון | ערב</span>
+      <h2>הליכת התאוששות קלה בהליכון</h2>
+      <label class="todo-item">
+        <input type="checkbox" id="t6">
+        <div>
+          <span class="badge-new">הליכון ערב</span>
+          <strong>הליכת התאוששות ביתית:</strong> 30–40 דק' <span class="muscle-name">(הוצאה אנרגטית וזרימת דם)</span>
+          <span class="weight-instruction">📌 קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. מומלץ לאחר ארוחת הערב להורדת סוכר ולשיפור התאוששות.</span>
+        </div>
+      </label>
+    </div>
+
+    <!-- 3. יום שני: אימון כוח -->
     <div class="card">
       <span class="badge">יום שני</span>
       <h2>תחתון A + שילוב רצועת קרסול ראשונית</h2>
 
       <label class="todo-item">
-        <input type="checkbox" id="t6">
+        <input type="checkbox" id="t7">
         <div>
           <strong>סקוואט:</strong> 4 × 8–12 <span class="muscle-name">(ארבע-ראשי + ישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג / דאמבלס 17.5 ק"ג + שילוב ווסט משקל.</span>
@@ -441,7 +459,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t7">
+        <input type="checkbox" id="t8">
         <div>
           <strong>לאנג'ים:</strong> 3 × 10 לכל רגל <span class="muscle-name">(ישבן + ארבע-ראשי ומייצבי אגן)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 10–17.5 ק"ג או ווסט משקל.</span>
@@ -450,7 +468,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t8">
+        <input type="checkbox" id="t9">
         <div>
           <span class="badge-new">שילוב רצועת קרסול</span>
           <strong>כפיפת ברכיים בשכיבה עם משקולת ברגל (Lying Leg Curls):</strong> 3 × 12–15 <span class="muscle-name">(בידוד מיתר הברך / המסטרינגס)</span>
@@ -460,7 +478,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t9">
+        <input type="checkbox" id="t10">
         <div>
           <strong>רומניאן דדליפט (RDL):</strong> 3 × 10–12 <span class="muscle-name">(המסטרינגס וישבן)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 17.5 ק"ג (מתיחה מלאה).</span>
@@ -469,7 +487,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t10">
+        <input type="checkbox" id="t11">
         <div>
           <strong>גלגל בטן (Ab Wheel):</strong> 3 × 8–12 <span class="muscle-name">(בטן רוחבית - TVA להידוק מותניים)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף מבוקר (איסוף פופיק פנימה).</span>
@@ -478,22 +496,22 @@
       </label>
     </div>
 
-    <!-- שלישי -->
+    <!-- 4. יום שלישי: רובריקת הליכון מרכזית LISS -->
     <div class="card">
-      <span class="badge">יום שלישי</span>
+      <span class="badge-cardio">יום שלישי | אימון אירובי מרכזי</span>
       <h2>התאוששות אקטיבית והליכון ביתי LISS</h2>
 
       <label class="todo-item">
-        <input type="checkbox" id="t11">
+        <input type="checkbox" id="t12">
         <div>
-          <span class="badge-new">הליכון ביתי + ווסט</span>
-          <strong>הליכת LISS על ההליכון (45–60 דק'):</strong> קצב 5.0–5.6 קמ"ש <span class="muscle-name">(חמצון שומן יעיל)</span>
+          <span class="badge-new">הליכון + ווסט משקל</span>
+          <strong>הליכת LISS מרכזית על ההליכון (45–60 דק'):</strong> קצב 5.0–5.6 קמ"ש <span class="muscle-name">(חמצון שומן מואץ)</span>
           <span class="weight-instruction">📌 שילוב ווסט משקל 6–10 ק"ג להגברת שריפת קלוריות ללא אימפקט על המפרקים. שיפוע קל של 1%–2%.</span>
         </div>
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t12">
+        <input type="checkbox" id="t13">
         <div>
           <strong>מתיחות וניידות:</strong> 10 דקות <span class="muscle-name">(שחרור מפרקי הכתפיים, אגן ושורש כף היד)</span>
           <button class="demo-btn" onclick="showDemo('מתיחות וניידות', 'g_tea8ZNk5A', 'סיבובי מפרקים עדינים, פתיחת בית חזה ושחרור המסטרינגס.')">🎬 צפה בהדגמת תרגיל</button>
@@ -501,22 +519,22 @@
       </label>
     </div>
 
-    <!-- רביעי -->
+    <!-- 5. יום רביעי: אימון כוח -->
     <div class="card">
-      <span class="badge">יום רביעי</span>
+      <span class="badge">יום רביעי | בוקר/צהריים</span>
       <h2>עליון B (גב + כתף אמצעית)</h2>
 
       <label class="todo-item">
-        <input type="checkbox" id="t13">
+        <input type="checkbox" id="t14">
         <div>
           <strong>לחיצת כתפיים (OHP):</strong> 4 × 8–12 <span class="muscle-name">(כתף קדמית ואמצעית)</span>
-          <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 10–17.5 ק"ג (ספה בשיפוע קל להגנת הגב).</span>
+          <span class="weight-instruction">📌 משקל מוצע: מוט 20 ק"ג או דאמבלס 10–17.5 ק"ג (ספה בשיפוע קל 75°–80° להגנת הגב).</span>
           <button class="demo-btn" onclick="showDemo('לחיצת כתפיים OHP', 'qEwKCR5JCog', 'כיווץ בטן וישבן, לחיצה אנכית למעלה ללא הישענות מוגזמת לאחור.')">🎬 צפה בהדגמת תרגיל</button>
         </div>
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t14">
+        <input type="checkbox" id="t15">
         <div>
           <strong>חתירה בכיפוף (Row):</strong> 4 × 8–10 <span class="muscle-name">(גב אמצעי + טרפזים)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד / דאמבלס 17.5 ק"ג.</span>
@@ -525,7 +543,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t15">
+        <input type="checkbox" id="t16">
         <div>
           <strong>טבילות (Dips) בטבעות:</strong> 3 × 8–10 <span class="muscle-name">(חזה תחתון + יד אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: משקל גוף / ווסט משקל.</span>
@@ -534,7 +552,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t16">
+        <input type="checkbox" id="t17">
         <div>
           <strong>הרחקות לצדדים בהטיה:</strong> 4 × 15–20 <span class="muscle-name">(כתף אמצעית ואחורית - מבנה V)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבלס 5–8 ק"ג (עבודה שורפת ומדויקת).</span>
@@ -543,7 +561,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t17">
+        <input type="checkbox" id="t18">
         <div>
           <strong>פשיטת מרפקים מאחורי הראש:</strong> 3 × 12–15 <span class="muscle-name">(יד אחורית - טרייספס)</span>
           <span class="weight-instruction">📌 משקל מוצע: דאמבל 8–10 ק"ג בשתי ידיים.</span>
@@ -552,13 +570,27 @@
       </label>
     </div>
 
-    <!-- חמישי -->
+    <!-- 6. יום רביעי: רובריקת הליכון ערב -->
+    <div class="card">
+      <span class="badge-cardio">יום רביעי | ערב</span>
+      <h2>הליכת התאוששות קלה בהליכון</h2>
+      <label class="todo-item">
+        <input type="checkbox" id="t19">
+        <div>
+          <span class="badge-new">הליכון ערב</span>
+          <strong>הליכת שחרור והוצאה קלורית:</strong> 30–40 דק' <span class="muscle-name">(ניקוי חומצת חלב וזרימת דם)</span>
+          <span class="weight-instruction">📌 קצב מתון 4.8–5.2 קמ"ש ללא ווסט משקל. תנועה רציפה ונעימה.</span>
+        </div>
+      </label>
+    </div>
+
+    <!-- 7. יום חמישי: אימון כוח -->
     <div class="card">
       <span class="badge">יום חמישי</span>
       <h2>תחתון B + פשיטת ברכיים ברצועה וליבה</h2>
 
       <label class="todo-item">
-        <input type="checkbox" id="t18">
+        <input type="checkbox" id="t20">
         <div>
           <strong>בולגריאן ספליט סקוואט:</strong> 3 × 8–10 לכל רגל <span class="muscle-name">(ישבן + ארבע-ראשי מבודד)</span>
           <span class="weight-instruction">📌 משקל מוצע: רגל על ספה + דאמבלס 10 ק"ג / ווסט משקל.</span>
@@ -567,7 +599,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t19">
+        <input type="checkbox" id="t21">
         <div>
           <strong>דדליפט קלאסי עם מוט / RDL:</strong> 3 × 6–8 <span class="muscle-name">(גב תחתון, ישבן וירך אחורית)</span>
           <span class="weight-instruction">📌 משקל מוצע: מוט עם 10 ק"ג כל צד (טכניקה נקייה ומבוקרת).</span>
@@ -576,7 +608,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t20">
+        <input type="checkbox" id="t22">
         <div>
           <span class="badge-new">שילוב רצועת קרסול</span>
           <strong>פשיטת ברכיים בישיבה עם משקולת ברגל (Seated Leg Extension):</strong> 3 × 12–15 לכל רגל <span class="muscle-name">(בידוד מושלם לארבע-ראשי)</span>
@@ -586,7 +618,7 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t21">
+        <input type="checkbox" id="t23">
         <div>
           <strong>עליות תאומים בעמידה:</strong> 4 × 15–20 <span class="muscle-name">(שרירי התאומים והשוקיים)</span>
           <span class="weight-instruction">📌 עמידה על מדרגה עם דאמבל 10–17.5 ק"ג, עלייה עד כיווץ מלא וירידה איטית.</span>
@@ -594,25 +626,32 @@
       </label>
 
       <label class="todo-item">
-        <input type="checkbox" id="t22">
+        <input type="checkbox" id="t24">
         <div>
           <strong>פלאנק סטטי מבוקר (Hollow Plank):</strong> 3 × 45–60 שנ' <span class="muscle-name">(שריר הבטן הרוחבי TVA)</span>
           <span class="weight-instruction">📌 כיווץ אגן חזק לאחור ושאיבת פופיק פנימה לבטן שטוחה ואסופה.</span>
         </div>
       </label>
+    </div>
 
-      <!-- המלצה להליכות שבועיות נוספות -->
-      <div style="background:var(--card-inner); padding:10px; border-radius:8px; border:1px dashed var(--accent); margin-top:14px; font-size:0.83rem; line-height:1.5;">
-        🚶‍♂️ <strong>בוסטר שריפת שומן שבועי (הליכון ביתי):</strong> מומלץ לשלב 2–3 הליכות קלות של 30–40 דקות ללא ווסט (בימים ראשון, רביעי ושישי/שבת) להגברת ההוצאה האנרגטית היומית.
-      </div>
+    <!-- 8. סוף שבוע: רובריקת הליכון סופ"ש -->
+    <div class="card">
+      <span class="badge-cardio">סוף שבוע (שישי או שבת)</span>
+      <h2>הליכת סופ"ש בהליכון ביתי</h2>
+      <label class="todo-item">
+        <input type="checkbox" id="t25">
+        <div>
+          <span class="badge-new">הליכון סופ"ש</span>
+          <strong>הליכת בוסטר שריפת שומן:</strong> 30–45 דק' <span class="muscle-name">(שמירה על גירעון קלורי פעיל)</span>
+          <span class="weight-instruction">📌 קצב 4.8–5.4 קמ"ש ללא ווסט משקל. מבוצע בשישי בבוקר/צהריים או בשבת.</span>
+        </div>
+      </label>
     </div>
 
   </div>
 
-  <!-- ==================== תצוגת תזונה ==================== -->
+  <!-- תצוגת תזונה -->
   <div id="view-nutrition" class="tab-view">
-
-    <!-- סיכום מאקרו -->
     <div class="macro-bar">
       <div class="macro-item"><strong>1,550</strong> קלוריות</div>
       <div class="macro-item"><strong>160 גר'</strong> חלבון</div>
@@ -620,105 +659,53 @@
       <div class="macro-item"><strong>45 גר'</strong> שומן</div>
     </div>
 
-    <!-- ארוחת בוקר -->
     <div class="card">
       <span class="badge">ארוחה 1 (בוקר)</span>
       <h2>ארוחת בוקר עתירת חלבון (~50 גר' חלבון)</h2>
       
-      <h3>אפשרות א': עוגת שוקולד-נוגט באייר פרייר (מומלצת!) 🍰</h3>
+      <h3>אפשרות א': עוגת שוקולד-נוגט באייר פרייר 🍰</h3>
       <div class="recipe-box">
-        <strong>מצרכים:</strong>
-        <br>• 1 סקופ אבקת חלבון שוקולד-נוגט (30 גרם)
-        <br>• 1 ביצה גדולה (L)
-        <br>• 1/4 כפית אבקת אפייה
-        <br>• 2 כפות מים / חלב (לפתיחת הבלילה)
-        <br>• <em>לצד העוגה:</em> 1 ביצה קשה + 2 כפות גדושות קוטג' 5% + ירקות פריכים.
-        <br><br>
-        <strong>אופן ההכנה:</strong> טורפים הכל בקערית חסינת חום לבלילה חלקה. אופים באייר פרייר על <strong>165°C במשך 7–8 דקות בלבד</strong>.
-        <br><br>
-        <strong>ערכים למנה המלאה:</strong> ~380 קק"ל | ~52 גרם חלבון | ~5 גרם פחמימה | ~15 גרם שומן.
-      </div>
-
-      <h3>אפשרות ב': מסורתי - לחם שיפון וקוטג' 🥪</h3>
-      <div class="recipe-box">
-        • 2 פרוסות לחם שיפון / מחמצת קל עם 3 כפות קוטג' 5%
-        <br>• 2 ביצים קשות (L)
-        <br>• שייק חלבון WHEY קפה/שוקולד על בסיס מים וקרח
-        <br>• סלט ירקות אישי (מלפפון, עגבנייה, צנונית)
-        <br><br>
-        <strong>ערכים:</strong> ~520 קק"ל | ~57 גרם חלבון | ~30 גרם פחמימה | ~16 גרם שומן.
+        <strong>מצרכים:</strong> 1 סקופ חלבון שוקולד-נוגט (30 גרם), 1 ביצה גדולה (L), 1/4 כפית אבקת אפייה, 2 כפות מים/חלב.
+        <br><em>לצד העוגה:</em> 1 ביצה קשה + 2 כפות קוטג' 5% + ירקות.
+        <br><strong>אפייה:</strong> באייר פרייר ב-165°C למשך 7–8 דקות.
+        <br><strong>ערכים:</strong> ~380 קק"ל | ~52 גר' חלבון | ~5 גר' פחמימה | ~15 גר' שומן.
       </div>
     </div>
 
-    <!-- ארוחת צהריים -->
     <div class="card">
       <span class="badge">ארוחה 2 (צהריים)</span>
       <h2>ארוחת צהריים נקייה (~50 גר' חלבון)</h2>
-      
       <div class="recipe-box">
-        • 180–200 גרם עוף בגריל / חזה עוף / פילה דג כשר צלוי (אמנון, דניס, סלמון)
-        <br>• 4 כפות אורז בסמטי / קינואה / בטטה אפויה קטנה (כ-100 גרם)
-        <br>• סלט ירקות עשיר (חסה, עגבנייה, מלפפון) עם כפית שמן זית ולימון
-        <br><br>
-        <strong>ערכים:</strong> ~500 קק"ל | ~48 גרם חלבון | ~30 גרם פחמימה | ~13 גרם שומן.
+        • 180–200 גרם עוף בגריל / חזה עוף / דג צלוי<br>
+        • 4 כפות אורז בסמטי / קינואה / בטטה אפויה קטנה (100 גרם)<br>
+        • סלט ירקות עשיר עם כפית שמן זית ולימון<br>
+        <strong>ערכים:</strong> ~500 קק"ל | ~48 גר' חלבון | ~30 גר' פחמימה | ~13 גר' שומן.
       </div>
     </div>
 
-    <!-- ארוחת ערב -->
     <div class="card">
       <span class="badge">ארוחה 3 (ערב)</span>
       <h2>ארוחת ערב דלת פחמימות לבטן שטוחה (~50 גר' חלבון)</h2>
-      
-      <h3>אפשרות נבחרת: פיצת טונה-אנשובי / לאפת טונה 🍕</h3>
       <div class="recipe-box">
-        <strong>בסיס הפיצה:</strong> 1 קופסת טונה מסוננת היטב + 1 ביצה (L) + מעט אבקת אפייה ותבלינים. משטחים דק ואופים בתנור/נינג'ה (190°C) כ-10–12 דק'.
-        <br><strong>תוספות מעל:</strong> 2 חתיכות אנשובי, 25–30 גרם מוצרלה ופרמזן מגורדות, עגבניות שרי/בזיליקום.
-        <br><br>
-        <strong>ערכים:</strong> ~340–380 קק"ל | ~46–50 גרם חלבון | אפס פחמימה | ~15 גרם שומן.
+        <strong>פיצת טונה-אנשובי:</strong> בסיס מקופסת טונה מסוננת + ביצה + תבלינים. אפייה 10–12 דקות (190°C).
+        <br><strong>מעל:</strong> 2 חתיכות אנשובי, 25–30 גרם מוצרלה ופרמזן.
+        <br><strong>ערכים:</strong> ~340–380 קק"ל | ~46–50 גר' חלבון | אפס פחמימה | ~15 גר' שומן.
       </div>
     </div>
-
   </div>
 
-  <!-- ==================== תצוגת חופשה ביוון (כשר) ==================== -->
+  <!-- תצוגת חופשה -->
   <div id="view-vacation" class="tab-view">
-
     <div class="card">
       <span class="badge">🇬🇷 Alimounda Mare | קרפתוס</span>
       <h2>מדריך תזונה כשרה ואימונים לחופשה</h2>
-      
       <p style="font-size:0.9rem; color:var(--muted); line-height:1.5;">
         המטבח היווני מציע שפע אפשרויות כשרות ואיכותיות לחיטוב: דגים שלמים כשרים על האש, ביצים, יוגורט יווני איכותי וירקות טריים.
       </p>
-
-      <h3>🍳 ארוחת בוקר חלבית (בופה במלון)</h3>
-      <div class="recipe-box">
-        • <strong>Greek Yogurt (Straggisto):</strong> 3–4 כפות גדושות של יוגורט יווני סמיך טבעי (~20 גר' חלבון).
-        <br>• <strong>Boiled Eggs:</strong> 2–3 ביצים קשות שלמות (~15–20 גר' חלבון).
-        <br>• <strong>Feta / Hard Cheese (Graviera):</strong> גבינה יוונית מסורתית (פרוסה דקה אחת לצד הביצים והירקות).
-        <br>• <strong>Fresh Veggies & Olives:</strong> שפע עגבניות, מלפפונים, פלפלים, זיתים ושמן זית כתית טהור.
-        <br>• <strong>שתייה:</strong> Freddo Espresso (אספרסו קר מוקצף ללא סוכר) או מים קרים.
-      </div>
-
-      <h3>🐟 ארוחת צהריים וערב (דגים כשרים וסלטים)</h3>
-      <div class="recipe-box">
-        <strong>דגים כשרים (סנפיר וקשקשת) להזמנה במסעדות:</strong>
-        <br>• <strong>Grilled Sea Bass (Lavraki):</strong> לברק שלם על האש (סנפיר וקשקשת) – כ-40–45 גר' חלבון נקי.
-        <br>• <strong>Grilled Sea Bream (Tsipoura):</strong> דניס שלם צלוי על הגריל – מעדן עשיר בחלבון.
-        <br>• <strong>Grilled Salmon (Solomos):</strong> פילה סלמון צלוי.
-        <br>• <strong>Chicken Souvlaki / Skewers:</strong> שיפודי חזה עוף על האש (במסעדות כשרות / צלייה ייעודית).
-        <br><br>
-        <strong>תוספות כשרות מומלצות:</strong>
-        <br>• <strong>Horiatiki (Greek Salad):</strong> סלט יווני עשיר (עגבניות, מלפפונים, בצל, זיתים וגבינת פטה).
-        <br>• <strong>Horta:</strong> עשבי בר ירוקים מבושלים עם שמן זית ולימון (קליל ומצוין לעיכול).
-        <br>• <strong>Baked / Boiled Potato:</strong> תפוח אדמה אפוי/מבושל נקי במקום צ'יפס.
-        <br>• <strong>Tzatziki:</strong> ממרח יוגורט יווני, שום ומלפפון (בארוחה חלבית/דגים).
-      </div>
     </div>
-
   </div>
 
-  <!-- נגן מובנה להדגמות וידאו -->
+  <!-- מודל וידאו -->
   <div id="demoModal" class="demo-modal" onclick="closeDemoOnBg(event)">
     <div class="demo-content">
       <div class="demo-header">
@@ -729,11 +716,7 @@
         <div class="video-wrapper">
           <iframe id="videoIframe" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </div>
-        
-        <a id="ytDirectBtn" href="#" target="_blank" class="yt-direct-btn">
-          ▶ פתח ישירות באפליקציית YouTube ↗
-        </a>
-
+        <a id="ytDirectBtn" href="#" target="_blank" class="yt-direct-btn">▶ פתח ישירות באפליקציית YouTube ↗</a>
         <div class="tips-box">
           <strong>💡 דגשי ביצוע וטמפו:</strong>
           <span id="demoTips">דגשים לביצוע נכון.</span>
@@ -816,7 +799,7 @@
 
     function resetTasks() {
       if (confirm('לאפס את כל סימוני האימונים השבועיים?')) {
-        for (let i = 1; i <= 22; i++) {
+        for (let i = 1; i <= 25; i++) {
           const el = document.getElementById('t' + i);
           if (el) el.checked = false;
         }
@@ -826,7 +809,7 @@
 
     function saveState() {
       const state = {};
-      for (let i = 1; i <= 22; i++) {
+      for (let i = 1; i <= 25; i++) {
         const el = document.getElementById('t' + i);
         if (el) state['t' + i] = el.checked;
       }
@@ -841,7 +824,7 @@
       const saved = localStorage.getItem('sk_fitness_state');
       if (!saved) return;
       const state = JSON.parse(saved);
-      for (let i = 1; i <= 22; i++) {
+      for (let i = 1; i <= 25; i++) {
         const el = document.getElementById('t' + i);
         if (el && state['t' + i] !== undefined) el.checked = state['t' + i];
       }
